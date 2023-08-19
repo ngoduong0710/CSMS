@@ -24,6 +24,12 @@
                     </div>
                 </h6>
                 <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="account-profile.jsp">
+                    <div class="dropdown-item-icon">
+                        <i data-feather="settings"></i>
+                    </div>
+                    Hồ sơ
+                </a>
                 <a class="dropdown-item" href="login.jsp">
                     <div class="dropdown-item-icon">
                         <i data-feather="log-out"></i>

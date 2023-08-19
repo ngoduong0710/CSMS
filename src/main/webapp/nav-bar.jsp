@@ -72,8 +72,8 @@
         <!-- Sidenav Footer-->
         <div class="sidenav-footer">
             <div class="sidenav-footer-content">
-                <div class="sidenav-footer-subtitle">Đăng nhập tại:</div>
-                <div class="sidenav-footer-title">Chưa biết</div>
+                <div class="sidenav-footer-subtitle">Nội bộ</div>
+                <div class="sidenav-footer-title">Chỉ dành cho nhân viên</div>
             </div>
         </div>
     </nav>
