@@ -1,23 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package modal;
+package com.csms.modal;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.List;
-
-/**
- *
- * @author DELL
- */
 public class Bill {
     private String id;
     private int totalPrice;
     private String createdAt;
     private Account createdBy;
-    
+    private String takeCreateBy;
+
     public Bill() {
     }
 
@@ -26,6 +15,13 @@ public class Bill {
         this.totalPrice = totalPrice;
         this.createdAt = createdAt;
         this.createdBy = createdBy;
+    }
+
+    public Bill(String id, int totalPrice, String createdAt, String takeCreateBy) {
+        this.id = id;
+        this.totalPrice = totalPrice;
+        this.createdAt = createdAt;
+        this.takeCreateBy = takeCreateBy;
     }
 
     public String getId() {
@@ -60,11 +56,16 @@ public class Bill {
         this.createdBy = createdBy;
     }
 
+    public String getTakeCreateBy() {
+        return takeCreateBy;
+    }
+
+    public void setTakeCreateBy(String takeCreateBy) {
+        this.takeCreateBy = takeCreateBy;
+    }
+
     @Override
     public String toString() {
         return "Bill{" + "id=" + id + ", totalPrice=" + totalPrice + ", createdAt=" + createdAt + ", createdBy=" + createdBy + '}';
     }
-
-    
-    
 }

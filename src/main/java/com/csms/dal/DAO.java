@@ -1,32 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package dal;
+package com.csms.dal;
 
-import java.util.Date;
+import com.csms.modal.*;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import modal.Account;
-import modal.Bill;
-import modal.Category;
-import modal.Drink;
-import modal.Ingredient;
-import modal.IngredientPerDay;
-import modal.Orderline;
+import java.util.Date;
 
-
-
-/**
- *
- * @author DELL
- */
 public class DAO extends DBContext{
     
     // read all records from table 'categories' trong sql Server
@@ -269,8 +252,8 @@ public class DAO extends DBContext{
             //String inputDateStr = "2023-08-14 14:49:58";
             SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = (Date) inputDateFormat.parse(b.getCreatedAt());
-            
-            Timestamp timestamp = new Timestamp(date.getTime()); 
+
+            Timestamp timestamp = new Timestamp(date.getTime());
             //LocalDateTime dateTime = LocalDateTime.now();
             //Timestamp timestamp = Timestamp.valueOf(dateTime);
             //System.out.println(timestamp);
@@ -282,7 +265,7 @@ public class DAO extends DBContext{
         }
     }
     
-    public void addOrderline(Orderline o){
+    public void addOrderline(OrderLine o){
         String sql = "INSERT INTO [dbo].[OrderLine]\n" +
                 "           ([Bill_id]\n" +
                 "           ,[Drink_id]\n" +

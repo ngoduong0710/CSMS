@@ -1,30 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package modal;
+package com.csms.modal;
 
-/**
- *
- * @author DELL
- */
-public class Orderline {
+public class OrderLine {
     private Bill bill;
     private Drink drink;
     private int quantity;
     private int totalPrice;
 
-    public Orderline( Bill bill, Drink drink, int quantity, int totalPrice) {
+    public OrderLine() {
+    }
+
+    public OrderLine(Bill bill, Drink drink, int quantity, int totalPrice) {
         this.bill = bill;
         this.drink = drink;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
     }
 
-    public Orderline() {
-    }
-
-    
     public Bill getBill() {
         return bill;
     }
@@ -59,8 +50,6 @@ public class Orderline {
 
     @Override
     public String toString() {
-        return "Orderline{" + ", bill=" + bill + ", drink=" + drink + ", quantity=" + quantity + ", totalPrice=" + totalPrice + '}';
+        return "OrderLine{" + ", bill=" + bill + ", drink=" + drink + ", quantity=" + quantity + ", totalPrice=" + totalPrice + '}';
     }
-    
-    
 }

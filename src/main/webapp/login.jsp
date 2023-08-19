@@ -23,9 +23,9 @@
                     <div class="px-1 pb-5">
                         <form action="login" method="post">
                             <div class="txt_field">
-                                <input id="username" name="username" type="text" value="" required>
+                                <input id="email" name="email" type="email" value="" required>
                                 <span></span>
-                                <label for="username">Tên tài khoản</label>
+                                <label for="email">Email</label>
                             </div>
                             <div class="txt_field">
                                 <input id="password" name="password" type="password" required>

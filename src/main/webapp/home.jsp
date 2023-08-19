@@ -1,119 +1,304 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Trang chủ - CSMS</title>
-        <link href="./assets/css/styles.css" rel="stylesheet" type="text/css"/>
-        <link rel="icon" type="image/x-icon" href="./assets/image/favicon.png">
-        <script data-search-pseudo-elements defer src="./assets/js/all.min.js"></script>
-        <script src="./assets/js/feather.min.js"></script>
-    </head>
-    <body class="nav-fixed">
-        <%
-            if (session == null || session.getAttribute("username") == null) {
-                response.sendRedirect("login.jsp");
-            }
-        %>
-        <nav class="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white"
-            id="sidenavAccordion" aria-label="topnav">
-            <!-- Sidenav Toggle Button-->
-            <button class="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0" id="sidebarToggle">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="feather feather-menu">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </button>
-            <!-- Navbar Brand-->
-            <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="home.jsp">CSMS</a>
-            <!-- Navbar Items-->
-            <ul class="navbar-nav align-items-center ms-auto">
-                <!-- User Dropdown-->
-                <li class="nav-item dropdown no-caret dropdown-user me-3 me-lg-4">
-                    <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage"
-                        href="javascript:void(0);" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <img class="img-fluid" src="./assets/image/profile.png" alt="avatar">
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up"
-                        aria-labelledby="navbarDropdownUserImage">
-                        <h6 class="dropdown-header d-flex align-items-center">
-                            <img class="dropdown-user-img" src="./assets/image/profile.png" alt="avatar">
-                            <div class="dropdown-user-details">
-                                <div class="dropdown-user-details-name">Quản trị viên</div>
-                                <div class="dropdown-user-details-email">admin@gmail.com</div>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Trang chủ - CSMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/styles.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./assets/image/favicon.png">
+    <script data-search-pseudo-elements defer src="./assets/js/all.min.js"></script>
+    <script src="./assets/js/feather.min.js"></script>
+</head>
+
+<body class="nav-fixed">
+    <%
+        if (session == null || session.getAttribute("email") == null) {
+            response.sendRedirect("login.jsp");
+        }
+    %>
+    <jsp:include page="header.jsp"></jsp:include>
+    <div id="layoutSidenav">
+        <jsp:include page="nav-bar.jsp"></jsp:include>
+        <div id="layoutSidenav_content">
+            <main>
+                <!-- Main page content-->
+                <div class="container-xl px-4 mt-5">
+                    <!-- Custom page header alternative example-->
+                    <div class="d-flex justify-content-between align-items-sm-center flex-column flex-sm-row mb-4">
+                        <div class="me-4 mb-3 mb-sm-0">
+                            <h1 class="mb-0">Dashboard</h1>
+                            <div class="small">
+                                <span class="fw-500 text-primary">Friday</span>
+                                · September 20, 2021 · 12:16 PM
+
                             </div>
-                        </h6>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="account-profile.jsp">
-                            <div class="dropdown-item-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg></div>
-                            Tài khoản
-                        </a>
-                        <a class="dropdown-item" href="login.jsp">
-                            <div class="dropdown-item-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
-                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                    <polyline points="16 17 21 12 16 7"></polyline>
-                                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                                </svg></div>
-                            Đăng xuất
-                        </a>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sidenav shadow-right sidenav-light" aria-label="sidenav">
-                    <div class="sidenav-menu">
-                        <div class="nav accordion" id="accordionSidenav">
-                            <!-- Sidenav Heading (Addons)-->
-                            <div class="sidenav-menu-heading">Mẫu</div>
-                            <!-- Sidenav Link (Tables)-->
-                            <a class="nav-link" href="tables.jsp">
-                                <div class="nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout">
-                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                        <line x1="3" y1="9" x2="21" y2="9"></line>
-                                        <line x1="9" y1="21" x2="9" y2="9"></line>
-                                    </svg></div>
-                                Bảng
-                            </a>
+                        </div>
+                        <!-- Date range picker example-->
+                        <div class="input-group input-group-joined border-0 shadow" style="width: 16.5rem">
+                                <span class="input-group-text">
+                                    <i data-feather="calendar"></i>
+                                </span>
+                            <input class="form-control ps-0 pointer" id="litepickerRangePlugin"
+                                   placeholder="Select date range..."/>
                         </div>
                     </div>
-                    <!-- Sidenav Footer-->
-                    <div class="sidenav-footer">
-                        <div class="sidenav-footer-content">
-                            <div class="sidenav-footer-subtitle">Đăng nhập tại:</div>
-                            <div class="sidenav-footer-title">Chưa biết</div>
+                    <!-- Illustration dashboard card example-->
+                    <div class="card card-waves mb-4 mt-5">
+                        <div class="card-body p-5">
+                            <div class="row align-items-center justify-content-between">
+                                <div class="col">
+                                    <h2 class="text-primary">Welcome back, your dashboard is ready!</h2>
+                                    <p class="text-gray-700">Great job, your affiliate dashboard is ready to go! You can
+                                        view sales, generate links, prepare coupons, and download affiliate reports using
+                                        this dashboard.</p>
+                                    <a class="btn btn-primary p-3" href="#!">
+                                        Get Started
+                                        <i class="ms-1" data-feather="arrow-right"></i>
+                                    </a>
+                                </div>
+                                <div class="col d-none d-lg-block mt-xxl-n4">
+                                    <img class="img-fluid px-xl-4 mt-xxl-n5" src="assets/image/statistics.svg"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </nav>
-            </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <!-- Main page content-->
-                    <!-- code here -->
-                </main>
-                <footer class="footer-admin mt-auto footer-light">
-                    <div class="container-xl text-center px-4 small">Copyright © CSMS 2023</div>
-                </footer>
-            </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <!-- Dashboard info widget 1-->
+                            <div class="card border-start-lg border-start-primary h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <div class="small fw-bold text-primary mb-1">Earnings (monthly)</div>
+                                            <div class="h5">$4,390</div>
+                                            <div class="text-xs fw-bold text-success d-inline-flex align-items-center">
+                                                <i class="me-1" data-feather="trending-up"></i>
+                                                12%
+
+                                            </div>
+                                        </div>
+                                        <div class="ms-2">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-200"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <!-- Dashboard info widget 2-->
+                            <div class="card border-start-lg border-start-secondary h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <div class="small fw-bold text-secondary mb-1">Average sale price</div>
+                                            <div class="h5">$27.00</div>
+                                            <div class="text-xs fw-bold text-danger d-inline-flex align-items-center">
+                                                <i class="me-1" data-feather="trending-down"></i>
+                                                3%
+
+                                            </div>
+                                        </div>
+                                        <div class="ms-2">
+                                            <i class="fas fa-tag fa-2x text-gray-200"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <!-- Dashboard info widget 3-->
+                            <div class="card border-start-lg border-start-success h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <div class="small fw-bold text-success mb-1">Clicks</div>
+                                            <div class="h5">11,291</div>
+                                            <div class="text-xs fw-bold text-success d-inline-flex align-items-center">
+                                                <i class="me-1" data-feather="trending-up"></i>
+                                                12%
+
+                                            </div>
+                                        </div>
+                                        <div class="ms-2">
+                                            <i class="fas fa-mouse-pointer fa-2x text-gray-200"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <!-- Dashboard info widget 4-->
+                            <div class="card border-start-lg border-start-info h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <div class="small fw-bold text-info mb-1">Conversion rate</div>
+                                            <div class="h5">1.23%</div>
+                                            <div class="text-xs fw-bold text-danger d-inline-flex align-items-center">
+                                                <i class="me-1" data-feather="trending-down"></i>
+                                                1%
+
+                                            </div>
+                                        </div>
+                                        <div class="ms-2">
+                                            <i class="fas fa-percentage fa-2x text-gray-200"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 mb-4">
+                            <!-- Illustration card example-->
+                            <div class="card mb-4">
+                                <div class="card-body text-center p-5">
+                                    <img class="img-fluid mb-5" src="assets/image/data-report.svg"/>
+                                    <h4>Report generation</h4>
+                                    <p class="mb-4">Ready to get started? Let us know now! It's time to start building that
+                                        dashboard you've been waiting to create!</p>
+                                    <a class="btn btn-primary p-3" href="#!">Continue</a>
+                                </div>
+                            </div>
+                            <!-- Report summary card example-->
+                            <div class="card mb-4">
+                                <div class="card-header">Affiliate Reports</div>
+                                <div class="list-group list-group-flush small">
+                                    <a class="list-group-item list-group-item-action" href="#!">
+                                        <i class="fas fa-dollar-sign fa-fw text-blue me-2"></i>
+                                        Earnings Reports
+
+                                    </a>
+                                    <a class="list-group-item list-group-item-action" href="#!">
+                                        <i class="fas fa-tag fa-fw text-purple me-2"></i>
+                                        Average Sale Price
+
+                                    </a>
+                                    <a class="list-group-item list-group-item-action" href="#!">
+                                        <i class="fas fa-mouse-pointer fa-fw text-green me-2"></i>
+                                        Engagement (Clicks &amp;Impressions)
+
+                                    </a>
+                                    <a class="list-group-item list-group-item-action" href="#!">
+                                        <i class="fas fa-percentage fa-fw text-yellow me-2"></i>
+                                        Conversion Rate
+
+                                    </a>
+                                    <a class="list-group-item list-group-item-action" href="#!">
+                                        <i class="fas fa-chart-pie fa-fw text-pink me-2"></i>
+                                        Segments
+
+                                    </a>
+                                </div>
+                                <div class="card-footer position-relative border-top-0">
+                                    <a class="stretched-link" href="#!">
+                                        <div class="text-xs d-flex align-items-center justify-content-between">
+                                            View More Reports
+                                            <i class="fas fa-long-arrow-alt-right"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Progress card example-->
+                            <div class="card bg-primary border-0">
+                                <div class="card-body">
+                                    <h5 class="text-white-50">Budget Overview</h5>
+                                    <div class="mb-4">
+                                        <span class="display-4 text-white">$48k</span>
+                                        <span class="text-white-50">per year</span>
+                                    </div>
+                                    <div class="progress bg-white-25 rounded-pill" style="height: 0.5rem">
+                                        <div class="progress-bar bg-white w-75 rounded-pill" role="progressbar"
+                                             aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 mb-4">
+                            <!-- Area chart example-->
+                            <div class="card mb-4">
+                                <div class="card-header">Revenue Summary</div>
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChart" width="100%" height="30"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <!-- Bar chart example-->
+                                    <div class="card h-100">
+                                        <div class="card-header">Sales Reporting</div>
+                                        <div class="card-body d-flex flex-column justify-content-center">
+                                            <div class="chart-bar">
+                                                <canvas id="myBarChart" width="100%" height="30"></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer position-relative">
+                                            <a class="stretched-link" href="#!">
+                                                <div class="text-xs d-flex align-items-center justify-content-between">
+                                                    View More Reports
+                                                    <i class="fas fa-long-arrow-alt-right"></i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <!-- Pie chart example-->
+                                    <div class="card h-100">
+                                        <div class="card-header">Traffic Sources</div>
+                                        <div class="card-body">
+                                            <div class="chart-pie mb-4">
+                                                <canvas id="myPieChart" width="100%" height="50"></canvas>
+                                            </div>
+                                            <div class="list-group list-group-flush">
+                                                <div class="list-group-item d-flex align-items-center justify-content-between small px-0 py-2">
+                                                    <div class="me-3">
+                                                        <i class="fas fa-circle fa-sm me-1 text-blue"></i>
+                                                        Direct
+
+                                                    </div>
+                                                    <div class="fw-500 text-dark">55%</div>
+                                                </div>
+                                                <div class="list-group-item d-flex align-items-center justify-content-between small px-0 py-2">
+                                                    <div class="me-3">
+                                                        <i class="fas fa-circle fa-sm me-1 text-purple"></i>
+                                                        Social
+
+                                                    </div>
+                                                    <div class="fw-500 text-dark">15%</div>
+                                                </div>
+                                                <div class="list-group-item d-flex align-items-center justify-content-between small px-0 py-2">
+                                                    <div class="me-3">
+                                                        <i class="fas fa-circle fa-sm me-1 text-green"></i>
+                                                        Referral
+
+                                                    </div>
+                                                    <div class="fw-500 text-dark">30%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <jsp:include page="footer.jsp"></jsp:include>
         </div>
-        <script src="./assets/js/custom-bundle.min.js"></script>
-        <script src="./assets/js/scripts.js"></script>
-        <script src="./assets/js/sb-customizer.js"></script>
-    </body>
+    </div>
+    <script src="./assets/js/custom-bundle.min.js"></script>
+    <script src="./assets/js/scripts.js"></script>
+    <script src="./assets/js/simple-datatables.js"></script>
+    <script src="./assets/js/datatables-simple-demo.js"></script>
+    <script src="./assets/js/sb-customizer.js"></script>
+</body>
+
 </html>

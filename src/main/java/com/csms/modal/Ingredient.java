@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package modal;
+package com.csms.modal;
 
 import java.sql.Date;
 
-/**
- *
- * @author DELL
- */
 public class Ingredient {
     private String id , name;
     private int weight;
@@ -71,6 +63,4 @@ public class Ingredient {
     public String toString() {
         return "Ingredient{" + "id=" + id + ", name=" + name + ", weight=" + weight + ", date=" + date + ", status=" + status + '}';
     }
-    
-    
 }

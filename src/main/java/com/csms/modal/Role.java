@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package modal;
+package com.csms.modal;
 
-/**
- *
- * @author DELL
- */
 public class Role {
     private String id , name , authorize;
 
@@ -48,6 +40,5 @@ public class Role {
     public String toString() {
         return "Role{" + "id=" + id + ", name=" + name + ", authorize=" + authorize + '}';
     }
-    
-    
+
 }

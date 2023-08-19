@@ -1,15 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package modal;
+package com.csms.modal;
 
-import java.util.List;
-
-/**
- *
- * @author DELL
- */
 public class Drink {
     private String id ;
     private Category ca;
@@ -28,7 +18,7 @@ public class Drink {
         this.price = price;
         this.status = status;
     }
-    
+
     public String getId() {
         return id;
     }
@@ -82,6 +72,4 @@ public class Drink {
     public String toString() {
         return "{id:'"+id+"', cateId:'"+ca.getId()+"', name:'"+name+"', pathImage:'"+pathImage+"', price:'"+price+"',status:'"+status+"'}";
     }
-    
-    
 }

@@ -79,7 +79,7 @@ public class ForgotPassWord extends HttpServlet {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(Date.from(now))
-                .setExpiration(Date.from(now.plus(40, ChronoUnit.SECONDS)))
+                .setExpiration(Date.from(now.plus(60, ChronoUnit.MINUTES)))
                 .signWith(key)
                 .compact();
     }
@@ -98,8 +98,8 @@ public class ForgotPassWord extends HttpServlet {
             request.setAttribute("errorMessage", "Email không tồn tại trong hệ thống.");
             request.getRequestDispatcher(FORGOT_PASSWORD_JSP).forward(request, response);
         } else {
-            String user = adb.getUsername(to);
-            String token = createToken(user);
+            String fullName = adb.getFullName(to);
+            String token = createToken(to);
             String link = "http://localhost:8080/change-password?token=" + token;
             String subject = "Thay đổi mật khẩu";
             String htmlContent = "<!DOCTYPE html>\n" +
@@ -109,7 +109,7 @@ public class ForgotPassWord extends HttpServlet {
                     "<div style=\"width: 70%; max-width: 600px; margin: 0 auto; overflow: hidden;\">\n" +
                     "<div style=\"background-color: #007bff; color: #ffffff; text-align: center; padding: 20px 0;\"><h1 style=\"margin: 0;\">Thay Đổi Mật Khẩu</h1></div>\n" +
                     "<div style=\"background-color: #ffffff; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\">\n" +
-                    "<p style=\"margin: 0; font-size: 16px; line-height: 24px;\">Hello " + user + "!</p>\n" +
+                    "<p style=\"margin: 0; font-size: 16px; line-height: 24px;\">Hello " + fullName + "!</p>\n" +
                     "<p style=\"margin: 0; font-size: 16px; line-height: 24px;\">Nhấn vào nút dưới đây để thay đổi mật khẩu của bạn:</p>\n" +
                     "<div style=\"text-align: center; margin: 10px 0;\">\n" +
                     "<a href=\"" + link + "\" style=\"display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 5px;\">Thay Đổi Mật Khẩu</a>\n" +

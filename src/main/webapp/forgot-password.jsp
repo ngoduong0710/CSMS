@@ -56,8 +56,12 @@
                     title: 'Gửi email thành công',
                     text: '${requestScope.successMessage}',
                     icon: 'success',
-                    confirmButtonText: 'OK'
-                })
+                    confirmButtonText: 'Về lại Trang đăng nhập',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.replace("login");
+                    }
+                });
             </c:if>
         </script>
 

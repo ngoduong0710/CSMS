@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package modal;
+package com.csms.modal;
 
-/**
- *
- * @author DELL
- */
 public class Category {
     private String id,name;
 
@@ -39,6 +31,4 @@ public class Category {
     public String toString() {
         return "Category{" + "id=" + id + ", name=" + name + '}';
     }
-    
-    
 }
