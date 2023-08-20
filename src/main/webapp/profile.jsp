@@ -20,7 +20,7 @@
     %>
     <jsp:include page="header.jsp"/>
     <div id="layoutSidenav">
-        <jsp:include page="nav-bar.jsp"/>
+        <jsp:include page="navBar.jsp"/>
         <div id="layoutSidenav_content">
             <main>
                 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -47,8 +47,8 @@
                 <div class="container-xl px-4 mt-4">
                     <!-- Account page navigation-->
                     <nav class="nav nav-borders" aria-label="subnav">
-                        <a class="nav-link active ms-0" href="account-profile.jsp">Hồ sơ</a>
-                        <a class="nav-link" href="account-security.jsp">Bảo mật</a>
+                        <a class="nav-link active ms-0" href="profile.jsp">Hồ sơ</a>
+                        <a class="nav-link" href="security.jsp">Bảo mật</a>
                     </nav>
                     <hr class="mt-0 mb-4">
                     <div class="row d-flex justify-content-center">

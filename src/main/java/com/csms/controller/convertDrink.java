@@ -12,8 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name = "convertDrink", value = "/convertDrink")
-public class convertDrink extends HttpServlet {
+@WebServlet(name = "ConvertDrink", value = "/convertDrink")
+public class ConvertDrink extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id_cate = request.getParameter("cid");
@@ -21,7 +21,7 @@ public class convertDrink extends HttpServlet {
         ArrayList<Drink> listDrink = da.getDrinkByCid(id_cate);
         HttpSession se = request.getSession();
         se.setAttribute("listDrink", listDrink);
-        request.getRequestDispatcher("Bill.jsp").forward(request, response);
+        request.getRequestDispatcher("bill.jsp").forward(request, response);
     }
 
     @Override

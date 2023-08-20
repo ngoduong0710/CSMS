@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DAO extends DBContext{
     
@@ -85,6 +86,7 @@ public class DAO extends DBContext{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println(listD);
         return listD;
     }
    
@@ -235,6 +237,21 @@ public class DAO extends DBContext{
         }
     }
 
+    public String getDrinkNameById(String id) {
+        String sql = "SELECT * FROM Drink WHERE Id=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("Name");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 //=======Bill==============================================================
     
     public void addBill(Bill b){
@@ -264,7 +281,29 @@ public class DAO extends DBContext{
             e.printStackTrace();
         }
     }
-    
+
+    public List<OrderLine02> getAllOrderlineByBillId(String id){
+        String sql = "SELECT * FROM OrderLine WHERE Bill_id=?";
+        List<OrderLine02> list = new ArrayList<>();
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                OrderLine02 ol = new OrderLine02(
+                        rs.getString("Id"),
+                        rs.getString("Bill_id"),
+                        rs.getString("Drink_id"),
+                        rs.getString("Price"),
+                        rs.getString("Number"));
+                list.add(ol);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public void addOrderline(OrderLine o){
         String sql = "INSERT INTO [dbo].[OrderLine]\n" +
                 "           ([Bill_id]\n" +

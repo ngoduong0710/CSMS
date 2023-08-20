@@ -1,15 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Vai trò - CSMS</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+        <link href="./assets/css/tableStyle.css" rel="stylesheet" type="text/css">
         <link href="./assets/css/styles.css" rel="stylesheet">
-        <link rel="icon" type="image/x-icon" href="assets/image/favicon.png">
+        <link rel="icon" type="image/x-icon" href="./assets/image/favicon.png">
         <script data-search-pseudo-elements defer src="./assets/js/all.min.js"></script>
         <script src="./assets/js/feather.min.js"></script>
         <style>
@@ -23,18 +23,12 @@
                 padding: 5px;
                 text-align: center;
             }
-
             input {
                 margin: 5px ;
-
             }
-
-
             .active {
                 width: 20px !important;
-
             }
-
             button {
                 margin: 5px;
                 /*                background-color: rgba(146, 53, 233, 0.832);*/
@@ -52,9 +46,9 @@
                 response.sendRedirect("login.jsp");
             }
         %>
-        <jsp:include page="header.jsp"></jsp:include>
+        <jsp:include page="header.jsp"/>
         <div id="layoutSidenav">
-            <jsp:include page="nav-bar.jsp"></jsp:include>
+            <jsp:include page="navBar.jsp"/>
             <div id="layoutSidenav_content">
                 <main>
                     <!-- Main page content-->
@@ -67,18 +61,18 @@
                                          <h3 style="color: blue">${requestScope.error}</h3>
                                         <input style="width: 200px; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="ID" name="id"><br>
 
-                                        <input style="width: 200px; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="Rode name" name="name"><br>
+                                        <input style="width: 200px; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="Tên vai trò" name="name"><br>
 
-                                        <input style="width: 200px; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="Authorize" name="authorize"><br>
+                                        <input style="width: 200px; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="Quyền hạn" name="authorize"><br>
 
-                                    <button>Add</button>
+                                    <button>Thêm</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </main>
-                <jsp:include page="footer.jsp"></jsp:include>
+                <jsp:include page="footer.jsp"/>
             </div>
         </div>
         <script src="./assets/js/custom-bundle.min.js"></script>

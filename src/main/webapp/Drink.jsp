@@ -1,13 +1,7 @@
-<%-- 
-    Document   : Drink
-    Created on : Aug 4, 2023, 9:06:10 AM
-    Author     : DELL
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,6 +12,7 @@
         <!-- site metas -->
         <title>Thức uống - CSMS</title>
         <!-- style css -->
+        <link rel="icon" type="image/x-icon" href="./assets/image/favicon.png">
         <link rel="stylesheet" type="text/css" href="./assets/css/styleKhoi.css">
         <link rel="stylesheet" type="text/css" href="./assets/css/styles.css">
         <!-- font css -->
@@ -39,35 +34,35 @@
                 response.sendRedirect("login.jsp");
             }
         %>
-        <jsp:include page="header.jsp"></jsp:include>
+        <jsp:include page="header.jsp"/>
         <div id="layoutSidenav">
-            <jsp:include page="nav-bar.jsp"></jsp:include>
+            <jsp:include page="navBar.jsp"/>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="header_section">
                         <div class="coffee_section_1">
                             <div class="input-group">
 <!--                                <img src="./images/banner-img.png" alt="" width="50px" height="50px">-->
-                                <div style="margin: 0 150px 0 20px; font-size: 25px;">Coffee shop</div>
+                                <div style="margin: 0 150px 0 20px; font-size: 25px;">Cửa hàng cà phê</div>
                                 <c:set var="price" value="${requestScope.price}"/>
                                 <form action="searchDrink" method="POST" style="display: flex">
                                     <select class="select2-search" name="cate">
-                                        <option value="C0">Search By Category</option>
-                                        <option value="C0">All</option>
+                                        <option value="C0">Tìm kiếm theo danh mục</option>
+                                        <option value="C0">Tất cả</option>
                                         <c:set var="cid" value="${requestScope.cid}"/>
                                         <c:forEach items="${sessionScope.listCa}" var="ca">
                                             <option ${(cid==ca.id)?'selected':''} value="${ca.id}">${ca.name}</option>
                                         </c:forEach>
                                     </select>
                                     <select class="select2-search" name="price">
-                                        <option value="0">Search By Price</option>
-                                        <option ${(price=="10000-20000")?'selected':''} value="10000-20000">From 10k to 20k</option>
-                                        <option ${(price=="20000-30000")?'selected':''} value="20000-30000">From 20k to 30k</option>
-                                        <option ${(price=="30000")?'selected':''} value="30000">over 30k</option>                            
+                                        <option value="0">Tìm kiếm theo mức giá</option>
+                                        <option ${(price=="10000-20000")?'selected':''} value="10000-20000">Từ 10k đến 20k</option>
+                                        <option ${(price=="20000-30000")?'selected':''} value="20000-30000">Từ 20k đến 30k</option>
+                                        <option ${(price=="30000")?'selected':''} value="30000">Trên 30k</option>
                                     </select>
-                                    <input type="text" name="textName" class="form-control select2-search" placeholder="Enter text...">
+                                    <input type="text" name="textName" class="form-control select2-search" placeholder="Nhập văn bản...">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit">Search</button>
+                                        <button class="btn btn-primary" type="submit">Tìm</button>
                                     </div>
                                 </form>
                             </div>             
@@ -80,7 +75,7 @@
                     <div class="coffee_section layout_padding">
                         <div class="container">
                             <div class="row">
-                                <h1 class="coffee_taital">OUR Coffee OFFER</h1>
+                                <h1 class="coffee_taital">ƯU ĐÃI CÀ PHÊ CỦA CHÚNG TÔI</h1>
                                 <div class="d-flex justify-content-center">
                                     <div class="input-group-append">
                                         <button 
@@ -88,14 +83,29 @@
                                             type="button" data-bs-toggle="modal" 
                                             data-bs-target="#addDrink" 
                                         >
-                                            Add a new drink
+                                            Thêm một thức uống mới
                                         </button> 
                                     </div>
                                 </div>
-                                <div class="bulit_icon"><img src="images/bulit-icon.png"></div>
                             </div>
                         </div>
-                        <div class="coffee_section_2">   
+                        <div class="coffee_section_1" style="border-radius: 5px; padding: 10px;max-height: 300px; overflow-y:auto; background-color: rgb(130, 225, 238);">
+                            <h3 style="text-align: left">Nguyên Lieu su dung moi ngay</h3>
+                            <div class="d-flex flex-wrap">
+                                <c:forEach items="${sessionScope.listNLPD}" var="nlpd">
+                                    <div class="d-flex justify-content-around" style="width: 25%;font-size: 18px; border: 1px solid gray; padding: 5px ; margin-bottom: 10px">
+                                        <label>${nlpd.nl.name}:</label>
+                                        <div>${nlpd.weight} gam</div>
+                                    </div>
+                                </c:forEach>
+                                <!-- comment -->
+                            </div>
+                        </div>
+                        <div class="coffee_section_2">
+                            <c:set var="list" value="${sessionScope.listDrink}" />
+                            <c:if test="${list.size() == 0}">
+                                <div style="color: red">Không tìm thấy đồ uống phù hợp ${list.size()}</div>
+                            </c:if>
                             <c:forEach items="${sessionScope.listDrink}" var="dri" varStatus="status">
                                 <c:if test="${status.index % 4 == 0}">
                                     <div class="container-fluid">
@@ -105,7 +115,7 @@
                                             <div class="coffee_img"><img src="${dri.pathImage}"></div>
                                             <h3 class="types_text">${dri.name}</h3>
                                             <p class="looking_text">${dri.price} vnd</p>
-                                            <div class="read_bt"><a href="detailDrink?Drink_id=${dri.id}">Read More</a></div>
+                                            <div class="read_bt"><a href="detailDrink?Drink_id=${dri.id}">Xem thêm</a></div>
                                         </div>   
                                 <c:if test="${status.index % 4 == 3 || status.last}">
                                         </div>
@@ -115,7 +125,7 @@
                         </div>
                     </div>
                 </main>
-                <jsp:include page="footer.jsp"></jsp:include>
+                <jsp:include page="footer.jsp"/>
             </div>
         </div>
                                     
@@ -125,31 +135,31 @@
                 <div class="modal-content">
                     <form action="addDrink" method="POST">
                         <div class="modal-header">
-                            <h4 class="modal-title">Add Information Drink</h4>
+                            <h4 class="modal-title">Thêm thông tin thức uống</h4>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label>Name</label>
+                                <label>Tên</label>
                                 <input name="name" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label>pathImage</label>
+                                <label>Link hình ảnh</label>
                                 <input name="pathImage" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label>Price</label>
+                                <label>Giá</label>
                                 <input name="price" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label>Status</label>
+                                <label>Tình trạng</label>
                                 <select name="status" id="edit-se" class="form-select" aria-label="Default select example">
-                                    <option value="1">available</option>
-                                    <option value="0">unavailable</option>
+                                    <option value="1">Có sẵn</option>
+                                    <option value="0">Không có sẵn</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Category</label>
+                                <label>Danh mục</label>
                                 <select name="category" id="edit-se" class="form-select" aria-label="Default select example">
                                     <c:forEach items="${sessionScope.listCa}" var="ca">
                                         <option value="${ca.id}">${ca.name}</option>
@@ -158,15 +168,14 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <input type="submit" class="btn btn-info" value="Create">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <input type="submit" class="btn btn-info" value="Tạo">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        
-                                    
+
         <script src="./assets/js/custom-bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="./assets/js/scripts.js"></script>

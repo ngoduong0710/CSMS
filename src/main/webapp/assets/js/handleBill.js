@@ -66,7 +66,7 @@ function handleTotalPrice(){
 function validatePositiveNumber(input,id) {
     const value = parseFloat(input.value);
     if (isNaN(value) || value <= 0) {
-        input.value = ''; // Xóa giá trị âm hoặc không hợp lệ
+        input.value = '1'; // Xóa giá trị âm hoặc không hợp lệ
     }else{
          listDrink.forEach((drink)=>{
             drink.quantity = drink.id===id ? value : drink.quantity;

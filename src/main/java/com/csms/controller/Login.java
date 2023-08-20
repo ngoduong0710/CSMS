@@ -50,7 +50,6 @@ public class Login extends HttpServlet {
         AccountDAO adb = new AccountDAO();
         try {
             if (adb.checkLogin(email, pass)) {
-                logger.info("Login success");
                 HttpSession session = request.getSession();
                 session.setAttribute(EMAIL, email);
                 session.setAttribute(FULL_NAME, adb.getFullName(email));
@@ -58,11 +57,11 @@ public class Login extends HttpServlet {
                 Cookie usernameCookie = new Cookie(EMAIL, email);
                 usernameCookie.setMaxAge(86400);
                 response.addCookie(usernameCookie);
-                response.sendRedirect("home.jsp");
+                response.setContentType("text/plain");
+                response.getWriter().write("redirect:home.jsp");
             } else {
-                logger.info("Login failed");
-                request.setAttribute("errorMessage", "Sai email hoặc mật khẩu.");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                response.setContentType("text/plain");
+                response.getWriter().write("error:Sai email hoặc mật khẩu.");
             }
         } catch (IOException e) {
             logger.error("Error at Login", e);

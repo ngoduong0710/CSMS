@@ -11,8 +11,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "addDrink", value = "/addDrink")
-public class addDrink extends HttpServlet {
+@WebServlet(name = "AddDrink", value = "/addDrink")
+public class AddDrink extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

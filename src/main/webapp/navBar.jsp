@@ -21,17 +21,20 @@
                                     <i class="fas fa-angle-down"></i>
                                 </div>
                             </a>
-                            <div class="collapse" id="appsCollapseUserManagement" data-bs-parent="#accordionSidenavAppsMenu">
+                            <div class="collapse" id="appsCollapseUserManagement"
+                                 data-bs-parent="#accordionSidenavAppsMenu">
                                 <nav class="sidenav-menu-nested nav" aria-label="accountnav">
                                     <a class="nav-link pe-auto" id="user-management-list"
-                                       href="${pageContext.request.contextPath}/users?page=1&size=10">Danh sách tài khoản</a>
+                                       href="${pageContext.request.contextPath}/users?page=1&size=10">Danh sách tài
+                                        khoản</a>
                                     <a class="nav-link pe-auto" id="user-management-add-user"
                                        href="${pageContext.request.contextPath}/add-user">Thêm tài khoản</a>
                                 </nav>
                             </div>
                         </c:when>
                         <c:when test="${permission eq 'vai trò'}">
-                            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseRole" aria-expanded="false" aria-controls="collapseRole">
+                            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse"
+                               data-bs-target="#collapseRole" aria-expanded="false" aria-controls="collapseRole">
                                 Vai trò
                                 <div class="sidenav-collapse-arrow">
                                     <i class="fas fa-angle-down"></i>
@@ -39,14 +42,15 @@
                             </a>
                             <div class="collapse" id="collapseRole" data-bs-parent="#accordionSidenav" style="">
                                 <nav class="sidenav-menu-nested nav" aria-label="rolenav">
-                                    <a class="nav-link" href="tables.jsp">Danh sách vai trò</a>
+                                    <a class="nav-link" href="listRole">Danh sách vai trò</a>
                                     <a class="nav-link" href="addRole.jsp">Thêm vai trò</a>
                                     <a class="nav-link" href="editRole.jsp">Sửa vai trò</a>
                                 </nav>
                             </div>
                         </c:when>
                         <c:when test="${permission eq 'hóa đơn'}">
-                            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseBill" aria-expanded="false" aria-controls="collapseBill">
+                            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse"
+                               data-bs-target="#collapseBill" aria-expanded="false" aria-controls="collapseBill">
                                 Hóa đơn
                                 <div class="sidenav-collapse-arrow">
                                     <i class="fas fa-angle-down"></i>
@@ -54,7 +58,7 @@
                             </a>
                             <div class="collapse" id="collapseBill" data-bs-parent="#accordionSidenav" style="">
                                 <nav class="sidenav-menu-nested nav" aria-label="rolenav">
-                                    <a class="nav-link" href="showBill.jsp">Xem hóa đơn</a>
+                                    <a class="nav-link" href="showBill">Xem hóa đơn</a>
                                     <a class="nav-link" href="viewDrinks?navbar=bill">Tạo hóa đơn</a>
                                 </nav>
                             </div>

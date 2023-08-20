@@ -1,9 +1,8 @@
 package com.csms.controller;
 
 import com.csms.dal.BillDao;
-import com.csms.dal.RoleDao;
+import com.csms.dal.DAO;
 import com.csms.modal.OrderLine02;
-import com.csms.modal.Role;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,6 +13,8 @@ import com.csms.modal.Bill;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+
+import static java.lang.System.out;
 
 /**
  *
@@ -64,16 +65,7 @@ public class ShowBill extends HttpServlet {
         BillDao b = new BillDao();
         List<Bill> listBill = b.getAllBill();
         request.setAttribute("dt", listBill);
-        String id = request.getParameter("id");
-        BillDao rd = new BillDao();
-        int tP;
-        try {
-            List<OrderLine02> list = rd.getBill(id);
-            request.setAttribute("da", list);
-        } catch (NumberFormatException e) {
-            System.out.println(e);
-        }
-        request.getRequestDispatcher("showBill.jsp").forward(request, response);
+        request.getRequestDispatcher("listBill.jsp").forward(request, response);
     }
 
     /**
@@ -87,7 +79,21 @@ public class ShowBill extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+
+        DAO d = new DAO();
+        String id = request.getParameter("id");
+        List<OrderLine02> list = d.getAllOrderlineByBillId(id);
+        PrintWriter out = response.getWriter();
+        for (OrderLine02 ol : list) {
+            out.println("<tr>\n" +
+                    "   <td>" + ol.getDrink_id() + "</td>\n" +
+                    "   <td>" + d.getDrinkNameById(ol.getDrink_id()) + "</td>\n" +
+                    "   <td>" + ol.getPrice() + "</td>\n" +
+                    "   <td>" + ol.getNumber() + "</td>\n" +
+                    "</tr>");
+        }
+        request.getRequestDispatcher("listBill.jsp");
     }
 
     /**

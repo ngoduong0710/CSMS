@@ -1,13 +1,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Vai trò - CSMS</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/tableStyle.css" rel="stylesheet" type="text/css">
         <link href="assets/css/styles.css" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="assets/image/favicon.png">
         <script data-search-pseudo-elements defer src="./assets/js/all.min.js"></script>
@@ -19,9 +19,9 @@
                 response.sendRedirect("login.jsp");
             }
         %>
-        <jsp:include page="header.jsp"></jsp:include>
+        <jsp:include page="header.jsp"/>
         <div id="layoutSidenav">
-            <jsp:include page="nav-bar.jsp"></jsp:include>
+            <jsp:include page="navBar.jsp"/>
             <div id="layoutSidenav_content">
                 <main>
                     <!-- Main page content-->
@@ -29,13 +29,13 @@
                         <div class="card mb-4">
                             <div class="card-header">Danh sách vai trò</div>
                             <div class="card-body">
-                                <table id="datatablesSimple" >
+                                <table id="datatablesSimple" aria-label="List role">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Authorize</th>
-                                            <th>Action</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Tên</th>
+                                            <th scope="col">Quyền hạn</th>
+                                            <th scope="col">Tùy chọn</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,10 +45,11 @@
                                                 <td>${id}</td>
                                                 <td>${c.name}</td>
                                                 <td>${c.authorize}</td>
-                                                <td><a class="nav-link" href="editRole?id=${id}">
+                                                <td>
+                                                    <a class="nav-link" href="editRole?id=${id}">
                                                         <button class="btn btn-datatable btn-icon btn-transparent-dark"   >
                                                             <i class="fa-solid fa-ellipsis-vertical"></i>
-                                                        </button> Edit
+                                                        </button> Sửa
                                                     </a>
                                                 </td>
                                             </tr>
@@ -56,10 +57,10 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Authorize</th>
-                                            <th>Action</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Tên</th>
+                                            <th scope="col">Quyền hạn</th>
+                                            <th scope="col">Tùy chọn</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -67,7 +68,7 @@
                         </div>
                     </div>
                 </main>
-                <jsp:include page="footer.jsp"></jsp:include>
+                <jsp:include page="footer.jsp"/>
             </div>
         </div>
         <script src="./assets/js/custom-bundle.min.js"></script>

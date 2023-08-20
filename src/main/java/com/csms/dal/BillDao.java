@@ -63,9 +63,12 @@ public class BillDao extends DBContext {
             ResultSet rs = st.executeQuery();
             st.setString(1, b);
             while (rs.next()) {
-                OrderLine02 r = new OrderLine02(rs.getString("Id"),
+                OrderLine02 r = new OrderLine02(
+                        rs.getString("Id"),
                         rs.getString("Bill_id"),
-                        rs.getString("Drink_id"), rs.getString("Price"), rs.getString("Number"));
+                        rs.getString("Drink_id"),
+                        rs.getString("Price"),
+                        rs.getString("Number"));
                 list.add(r);
             }
         } catch (SQLException e) {
@@ -93,9 +96,9 @@ public class BillDao extends DBContext {
         return list;
     }
 
-    public static void main(String[] args) {
-        BillDao c = new BillDao();
-        List<Bill> list = c.getAllBill();
-        System.out.println(list.get(0).getId());
-    }
+//    public static void main(String[] args) {
+//        BillDao c = new BillDao();
+//        List<Bill> list = c.getAllBill();
+//        System.out.println(list.get(0).getId());
+//    }
 }

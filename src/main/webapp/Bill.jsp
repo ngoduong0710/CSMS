@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +11,7 @@
         <meta name="viewport" content="initial-scale=1, maximum-scale=1">
         <!-- site metas -->
         <title>Hóa đơn - CSMS</title>
+        <link rel="icon" type="image/x-icon" href="./assets/image/favicon.png">
         <link rel="stylesheet" type="text/css" href="./assets/css/styleKhoi.css">
         <link rel="stylesheet" type="text/css" href="./assets/css/styles.css">
         <!-- Tweaks for older IEs-->
@@ -36,9 +37,9 @@
                 response.sendRedirect("login.jsp");
             }
         %>
-        <jsp:include page="header.jsp"></jsp:include>
+        <jsp:include page="header.jsp"/>
         <div id="layoutSidenav">
-            <jsp:include page="nav-bar.jsp"></jsp:include>
+            <jsp:include page="navBar.jsp"/>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="system-bill-coffee">
@@ -49,7 +50,7 @@
                                     <div class="container-fluid">
 
                                         <!-- Navbar brand -->
-                                        <a class="navbar-brand" href="#">Categories:</a>
+                                        <a class="navbar-brand" href="#">Danh mục:</a>
 
                                         <!-- Toggle button -->
                                         <button 
@@ -69,7 +70,7 @@
 
                                                 <!-- Link -->
                                                 <li class="nav-item acitve">
-                                                    <a class="nav-link text-white" href="convertDrink?cid=C0">All</a>
+                                                    <a class="nav-link text-white" href="convertDrink?cid=C0">Tất cả</a>
                                                 </li><!-- comment -->
                                                 
                                                 <c:forEach items="${sessionScope.listCa}" var="ca">
@@ -96,10 +97,10 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Action</th>
+                                            <th scope="col">Tên</th>
+                                            <th scope="col">Giá</th>
+                                            <th scope="col">Số lượng</th>
+                                            <th scope="col">Tùy chọn</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -108,16 +109,16 @@
                                 </table>
                                 <div class="payment">
                                     <div class="total">
-                                        <div class="total-title">Total quantity</div>
+                                        <div class="total-title">Tổng số lượng</div>
                                         <div class="total-number quantity">0</div>
                                     </div>
                                     <div class="total">
-                                        <div class="total-title">Total money</div>
+                                        <div class="total-title">Tổng tiền</div>
                                         <div class="total-number money">0</div>
                                     </div>
                                     <div class="action">
                                         <button onclick="showContentBill()" class="btn btn-primary ms-1" type="button" data-bs-toggle="modal" data-bs-target="#show-bill">
-                                            Create Bill
+                                            Tạo hóa đơn
                                         </button>
                                     </div>
                                 </div>
@@ -131,11 +132,11 @@
                             <div class="modal-content">
                                 <form action="add" method="post">
                                     <div>						
-                                        <div class="modal-title">Bill Payment</div>
+                                        <div class="modal-title">Hóa đơn thanh toán</div>
                                         <hr>
                                         <div class="info">
                                             <div class="info-title">
-                                                Date:
+                                                Ngày:
                                             </div>&nbsp;&nbsp;
                                             <div class="info-content date">
                                                 
@@ -143,7 +144,7 @@
                                         </div>
                                         <div class="info">
                                             <div class="info-title">
-                                                Time:
+                                                Thời gian:
                                             </div>&nbsp;&nbsp;
                                             <div class="info-content time">
                                                 
@@ -156,9 +157,9 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col">ID</th>
-                                                    <th scope="col">Name</th>
-                                                    <th scope="col">Price/1 drink</th>
-                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Tên</th>
+                                                    <th scope="col">Giá/1 thức uống</th>
+                                                    <th scope="col">Số lượng</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -168,24 +169,24 @@
                                     </div>
                                     <div class="payment">
                                         <div class="total" style="color: black">
-                                            <div class="total-title">Total quantity</div>
+                                            <div class="total-title">Tổng số lượng</div>
                                             <div class="total-number quantity-bill"></div>
                                         </div>
                                         <div class="total" style="color: black">
-                                            <div class="total-title">Total money</div>
+                                            <div class="total-title">Tổng tiền</div>
                                             <div class="total-number money-bill"></div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button onclick="cancelBill()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <input onClick="sendBillToServlet()" type="button" class="btn btn-success" value="Add">
+                                        <button onclick="cancelBill()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                        <input onClick="sendBillToServlet()" type="button" class="btn btn-success" value="Thêm">
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </main>
-                <jsp:include page="footer.jsp"></jsp:include>
+                <jsp:include page="footer.jsp"/>
             </div>
         </div>
 

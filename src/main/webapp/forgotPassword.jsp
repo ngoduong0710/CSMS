@@ -1,6 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,6 +11,8 @@
         <link rel="icon" type="image/x-icon" href="./assets/image/favicon.png">
         <script src="./assets/js/feather.min.js"></script>
         <script src="./assets/js/sweetalert2.all.min.js"></script>
+        <script src="./assets/js/jquery.min.js"></script>
+        <script src="./assets/js/forgotPassword.js"></script>
     </head>
     <body class="bg-primary">
         <div id="layoutAuthentication">
@@ -36,34 +37,8 @@
                 </main>
             </div>
             <div id="layoutAuthentication_footer">
-                <footer class="footer-admin mt-auto footer-light">
-                    <div class="container-xl text-center px-4 small">Copyright © CSMS 2023</div>
-                </footer>
+                <jsp:include page="footer.jsp"/>
             </div>
         </div>
-
-        <script type="text/javascript">
-            <c:if test="${not empty requestScope.errorMessage}">
-                Swal.fire({
-                    title: 'Lỗi!',
-                    text: '${requestScope.errorMessage}',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                })
-            </c:if>
-            <c:if test="${not empty requestScope.successMessage}">
-                Swal.fire({
-                    title: 'Gửi email thành công',
-                    text: '${requestScope.successMessage}',
-                    icon: 'success',
-                    confirmButtonText: 'Về lại Trang đăng nhập',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.replace("login");
-                    }
-                });
-            </c:if>
-        </script>
-
     </body>
 </html>

@@ -13,8 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name = "viewDrinks", value = "/viewDrinks")
-public class viewDrinks extends HttpServlet {
+@WebServlet(name = "ViewDrinks", value = "/viewDrinks")
+public class ViewDrinks extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String navbar = request.getParameter("navbar");
@@ -25,9 +25,10 @@ public class viewDrinks extends HttpServlet {
         se.setAttribute("listCa", listCa);
         se.setAttribute("listDrink", listDrink);
         if(navbar.equals("drink")){
-            request.getRequestDispatcher("Drink.jsp").forward(request, response);
+            se.setAttribute("listNLPD", dao.getAllIngredientsPerDay());
+            request.getRequestDispatcher("drink.jsp").forward(request, response);
         }else{
-            request.getRequestDispatcher("Bill.jsp").forward(request, response);
+            request.getRequestDispatcher("bill.jsp").forward(request, response);
         }
     }
 

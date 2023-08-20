@@ -12,8 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name = "searchDrink", value = "/searchDrink")
-public class searchDrink extends HttpServlet {
+@WebServlet(name = "SearchDrink", value = "/searchDrink")
+public class SearchDrink extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -35,6 +35,6 @@ public class searchDrink extends HttpServlet {
         se.setAttribute("listDrink", searchedDrink);
         request.setAttribute("price", price);
         request.setAttribute("cid", cid);
-        request.getRequestDispatcher("Drink.jsp").forward(request, response);
+        request.getRequestDispatcher("drink.jsp").forward(request, response);
     }
 }

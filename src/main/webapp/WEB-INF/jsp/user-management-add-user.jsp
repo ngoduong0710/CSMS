@@ -30,7 +30,7 @@
 <body class="nav-fixed">
 <jsp:include page="/header.jsp"></jsp:include>
 <div id="layoutSidenav">
-    <jsp:include page="/nav-bar.jsp"></jsp:include>
+    <jsp:include page="/navBar.jsp"></jsp:include>
     <div id="layoutSidenav_content">
         <main>
             <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">

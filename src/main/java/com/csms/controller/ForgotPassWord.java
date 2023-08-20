@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Base64;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
 
 import com.csms.dal.AccountDAO;
 import com.csms.utils.SecretHolder;
@@ -34,8 +32,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class ForgotPassWord extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger();
-
-    private static final String FORGOT_PASSWORD_JSP = "forgot-password.jsp";
+    private static final String FORGOT_PASSWORD_JSP = "forgotPassword.jsp";
 
     private void sendEmail(String to, String subject, String htmlContent) {
         final String from = "csms.prj301@gmail.com";
@@ -71,15 +68,16 @@ public class ForgotPassWord extends HttpServlet {
         }
     }
 
-    private String createToken(String username) {
+    private String createToken(String email) {
         String secret = SecretHolder.getSecretKeyAsString();
         Key key = new SecretKeySpec(Base64.getDecoder().decode(secret),
                 SignatureAlgorithm.HS256.getJcaName());
         Instant now = Instant.now();
+
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(email)
                 .setIssuedAt(Date.from(now))
-                .setExpiration(Date.from(now.plus(60, ChronoUnit.MINUTES)))
+                .setExpiration(Date.from(now.plus(15, ChronoUnit.MINUTES)))
                 .signWith(key)
                 .compact();
     }
@@ -95,12 +93,11 @@ public class ForgotPassWord extends HttpServlet {
         String to = request.getParameter("email");
         if (!adb.checkEmailExist(to)) {
             logger.warn("Email does not exist: {}", to);
-            request.setAttribute("errorMessage", "Email không tồn tại trong hệ thống.");
-            request.getRequestDispatcher(FORGOT_PASSWORD_JSP).forward(request, response);
+            response.getWriter().write("error:Email không tồn tại trong hệ thống.");
         } else {
             String fullName = adb.getFullName(to);
             String token = createToken(to);
-            String link = "http://localhost:8080/change-password?token=" + token;
+            String link = "http://localhost:8080/changepassword?token=" + token;
             String subject = "Thay đổi mật khẩu";
             String htmlContent = "<!DOCTYPE html>\n" +
                     "<html>\n" +
@@ -122,9 +119,9 @@ public class ForgotPassWord extends HttpServlet {
             try {
                 sendEmail(to, subject, htmlContent);
                 logger.info("Email sent successfully");
-                request.setAttribute("successMessage", "Chúng tôi đã gửi một email chứa liên kết để thay đổi mật khẩu đến hộp thư của bạn. " +
-                        "Vui lòng kiểm tra email và làm theo hướng dẫn để tiến hành thay đổi mật khẩu.");
-                request.getRequestDispatcher(FORGOT_PASSWORD_JSP).forward(request, response);
+                String successMessage = "Chúng tôi đã gửi một email chứa liên kết để thay đổi mật khẩu đến hộp thư của bạn. " +
+                        "Vui lòng kiểm tra email và làm theo hướng dẫn để tiến hành thay đổi mật khẩu.";
+                response.getWriter().write("success:" + successMessage);
             } catch (Exception e) {
                 logger.error("Error at ForgotPassword: {}", e.getMessage());
             }

@@ -20,12 +20,12 @@ import org.apache.logging.log4j.Logger;
 
 import javax.crypto.spec.SecretKeySpec;
 
-@WebServlet(name = "ChangePassword", value = "/change-password")
+@WebServlet(name = "ChangePassword", value = "/changepassword")
 public class ChangePassword extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger();
 
-    private static final String CHANGE_PASSWORD_JSP = "change-password.jsp";
+    private static final String CHANGE_PASSWORD_JSP = "changePassword.jsp";
 
     private Claims parsedToken(String token) {
         String secret = SecretHolder.getSecretKeyAsString();
@@ -53,7 +53,7 @@ public class ChangePassword extends HttpServlet {
             request.getRequestDispatcher(CHANGE_PASSWORD_JSP).forward(request, response);
         } else {
             logger.warn("Token expired: {}", token);
-            response.sendRedirect("403-error.jsp");
+            response.sendRedirect("403Forbidden.jsp");
         }
     }
 
@@ -64,33 +64,24 @@ public class ChangePassword extends HttpServlet {
         String token = request.getParameter("token");
         String userName = parsedToken(token).getSubject();
         String newPass = request.getParameter("newpass");
-        String confirmPass = request.getParameter("confirmpass");
 
         Date expirationDate = parsedToken(token).getExpiration();
         Date now = new Date();
 
         try {
             if (expirationDate != null && expirationDate.after(now)) {
-                if (!newPass.equals(confirmPass)) {
-                    logger.warn("New password and confirmation password do not match");
-                    request.setAttribute("errorMessage", "Mật khẩu mới và xác nhận mật khẩu mới không khớp.");
-                    request.getRequestDispatcher(CHANGE_PASSWORD_JSP).forward(request, response);
+                if (adb.checkPasswordExist(userName, newPass)) {
+                    logger.warn("Password change request: New password is the same as the old password. User: {}", userName);
+                    response.getWriter().write("error:Mật khẩu mới giống mật khẩu cũ. Vui lòng chọn một mật khẩu khác.");
+                } else if (adb.changePassword(userName, newPass)) {
+                    logger.info("Password changed successfully. User: {}", userName);
+                    response.getWriter().write("success:Mật khẩu của bạn đã được cập nhật.");
                 } else {
-                    if (adb.checkPasswordExist(userName, newPass)) {
-                        logger.warn("Password change request: New password is the same as the old password. User: {}", userName);
-                        request.setAttribute("errorMessage", "Mật khẩu mới giống mật khẩu cũ. Vui lòng chọn một mật khẩu khác.");
-                        request.getRequestDispatcher(CHANGE_PASSWORD_JSP).forward(request, response);
-                    } else if (adb.changePassword(userName, newPass)) {
-                        logger.info("Password changed successfully. User: {}", userName);
-                        request.setAttribute("successMessage", "Mật khẩu của bạn đã được cập nhật.");
-                        request.getRequestDispatcher(CHANGE_PASSWORD_JSP).forward(request, response);
-                    } else {
-                        logger.warn("Password change failed");
-                    }
+                    logger.warn("Password change failed");
                 }
             } else {
                 logger.warn("Token expired: {}", token);
-                response.sendRedirect("403-error.jsp");
+                response.getWriter().write("invalid:403Forbidden.jsp");
             }
         } catch (Exception e) {
             logger.error("Error at ChangePassword: {}", e.getMessage());

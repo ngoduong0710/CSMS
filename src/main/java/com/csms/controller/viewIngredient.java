@@ -13,8 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name = "viewIngredient", value = "/viewIngredient")
-public class viewIngredient extends HttpServlet {
+@WebServlet(name = "ViewIngredient", value = "/viewIngredient")
+public class ViewIngredient extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DAO dao = new DAO();
@@ -26,7 +26,7 @@ public class viewIngredient extends HttpServlet {
         ArrayList<IngredientPerDay> listNLPD = dao.getAllIngredientsPerDay();
         se.setAttribute("listNLPD", listNLPD);
 
-        request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
+        request.getRequestDispatcher("ingredient.jsp").forward(request, response);
         //processRequest(request, response);
     }
 

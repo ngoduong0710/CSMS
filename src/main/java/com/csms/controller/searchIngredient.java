@@ -12,8 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name = "searchIngredient", value = "/searchIngredient")
-public class searchIngredient extends HttpServlet {
+@WebServlet(name = "SearchIngredient", value = "/searchIngredient")
+public class SearchIngredient extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -26,6 +26,6 @@ public class searchIngredient extends HttpServlet {
         ArrayList<Ingredient> listNL = dao.searchByName(searchedText);
         HttpSession se = request.getSession();
         se.setAttribute("listNL", listNL);
-        request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
+        request.getRequestDispatcher("ingredient.jsp").forward(request, response);
     }
 }

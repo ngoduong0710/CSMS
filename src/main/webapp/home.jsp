@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Trang chủ - CSMS</title>
-    <link href="./assets/css/tablestyle.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/tableStyle.css" rel="stylesheet" type="text/css">
     <link href="./assets/css/styles.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="./assets/image/favicon.png">
     <script data-search-pseudo-elements defer src="./assets/js/all.min.js"></script>
@@ -23,7 +23,7 @@
     %>
     <jsp:include page="header.jsp"/>
     <div id="layoutSidenav">
-        <jsp:include page="nav-bar.jsp"/>
+        <jsp:include page="navBar.jsp"/>
         <div id="layoutSidenav_content">
             <main>
                 <!-- Main page content-->
@@ -44,7 +44,7 @@
                             <div class="row align-items-center justify-content-between">
                                 <div class="col">
                                     <h2 class="text-primary">Chào mừng trở lại, bảng điều khiển của bạn đã sẵn sàng!</h2>
-                                    <a class="btn btn-primary p-3" href="#">
+                                    <a class="btn btn-primary p-3" href="home.jsp">
                                         Bắt đầu
                                         <i class="ms-1" data-feather="arrow-right"></i>
                                     </a>

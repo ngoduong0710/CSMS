@@ -38,9 +38,7 @@
             </main>
         </div>
         <div id="layoutError_footer">
-            <footer class="footer-admin mt-auto footer-light">
-                <div class="container-xl px-4 text-center small">Copyright © CSMS 2023</div>
-            </footer>
+            <jsp:include page="footer.jsp"/>
         </div>
     </div>
 

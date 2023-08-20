@@ -11,8 +11,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "editDrink", value = "/editDrink")
-public class editDrink extends HttpServlet {
+@WebServlet(name = "EditDrink", value = "/editDrink")
+public class EditDrink extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -21,7 +21,6 @@ public class editDrink extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-        System.out.println(id);
         String name = request.getParameter("name");
         String image = request.getParameter("pathImage");
         String price = request.getParameter("price");
@@ -30,7 +29,7 @@ public class editDrink extends HttpServlet {
         DAO dao = new DAO();
         try {
             int priceD = Integer.parseInt(price);
-            boolean statusD = status == "1" ? true : false;
+            boolean statusD = status.equals("1");
             Category cate = dao.getCategoryById(id_cate);
             Drink d = new Drink(id, cate ,name, image, priceD, statusD);
 //           HttpSession se = request.getSession();

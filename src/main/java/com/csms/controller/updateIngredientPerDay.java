@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "updateIngredientPerDay", value = "/updateIngredientPerDay")
-public class updateIngredientPerDay extends HttpServlet {
+@WebServlet(name = "UpdateIngredientPerDay", value = "/updateIngredientPerDay")
+public class UpdateIngredientPerDay extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

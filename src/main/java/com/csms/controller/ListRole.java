@@ -57,7 +57,7 @@ public class ListRole extends HttpServlet {
         RoleDao c = new RoleDao();
         List<Role> list = c.getAll();
         request.setAttribute("data", list);
-        request.getRequestDispatcher("tables.jsp").forward(request, response);
+        request.getRequestDispatcher("listRole.jsp").forward(request, response);
     } 
 
     /** 
