@@ -4,8 +4,7 @@ package com.khoabug.coffeshop.user.controller; /**
  **/
 
 import com.khoabug.coffeshop.common.paging.Pageable;
-import com.khoabug.coffeshop.common.paging.Sorter;
-import com.khoabug.coffeshop.user.service.UserService;
+import com.khoabug.coffeshop.user.infrastructure.repository.UserRepository;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,17 +18,17 @@ import java.io.IOException;
 public class UserController extends HttpServlet {
 
     @Inject
-    private UserService userService;
+    private UserRepository repository;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Pageable pageable = Pageable.of(
-                Pageable.getSorterOr(request, Sorter.by(Sorter.Direction.DESC, "name")),
-                request, userService.count()
+                null,
+                request,
+                repository.count()
         );
-
-        request.setAttribute("users", userService.findAll(pageable));
-        request.setAttribute("pageI", pageable);
+        request.setAttribute("users", repository.findAll(pageable));
+        request.setAttribute("page", pageable);
         request.getRequestDispatcher("/WEB-INF/jsp/user-management-list.jsp").forward(request, response);
     }
 

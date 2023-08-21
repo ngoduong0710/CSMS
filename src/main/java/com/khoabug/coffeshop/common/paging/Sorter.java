@@ -1,6 +1,6 @@
 package com.khoabug.coffeshop.common.paging;
 
-import com.khoabug.coffeshop.common.services.RequestMappingService;
+import com.khoabug.coffeshop.common.services.RequestMapper;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class Sorter {
@@ -14,7 +14,7 @@ public class Sorter {
     }
 
     public static Sorter of(HttpServletRequest request) {
-        Sorter sorter = RequestMappingService.toModel(Sorter.class, request);
+        Sorter sorter = RequestMapper.toModel(Sorter.class, request);
         return sorter;
     }
 

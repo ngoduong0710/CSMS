@@ -2,6 +2,7 @@ package com.khoabug.coffeshop.role.infrastructure.repository.impl;
 
 import com.khoabug.coffeshop.common.repository.impl.CrudRepository;
 import com.khoabug.coffeshop.role.infrastructure.entitymapper.RoleMapper;
+import com.khoabug.coffeshop.role.infrastructure.repository.RoleRepository;
 import com.khoabug.coffeshop.role.model.Role;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
  * @since : 8/16/2023 ,Wed
  */
 @ApplicationScoped
-public class RoleRepository extends CrudRepository<Role> implements com.khoabug.coffeshop.role.infrastructure.repository.RoleRepository {
+public class RoleRepositoryImpl extends CrudRepository implements RoleRepository {
     @Override
     public List<Role> findAll() {
         String sql = "SELECT * FROM role";
@@ -22,7 +23,11 @@ public class RoleRepository extends CrudRepository<Role> implements com.khoabug.
 
     @Override
     public Optional<Role> findById(String id) {
-        String sql = "SELECT * FROM role WHERE id = ?";
+        String sql = """
+                SELECT * 
+                FROM role
+                WHERE id = ?
+                """;
         return query(sql, new RoleMapper(), id).stream().findFirst();
     }
 

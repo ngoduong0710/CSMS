@@ -4,7 +4,7 @@ import com.khoabug.coffeshop.common.model.AbstractModel;
 import com.khoabug.coffeshop.role.model.Role;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * @author : DangKhoa
@@ -13,21 +13,10 @@ import java.util.Date;
 public class User extends AbstractModel<User> implements Serializable {
     private String email;
     private String password;
-    private boolean gender;
+    private Boolean gender;
     private String name;
     private Date dob;
-    private String phone;
     private Role role;
-
-    public User() {
-    }
-
-    public User(String email, String password, String name, Role role) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.role = role;
-    }
 
     public Role getRole() {
         return role;
@@ -35,14 +24,6 @@ public class User extends AbstractModel<User> implements Serializable {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getEmail() {
@@ -53,11 +34,11 @@ public class User extends AbstractModel<User> implements Serializable {
         this.email = email;
     }
 
-    public boolean isGender() {
+    public Boolean getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 
@@ -84,7 +65,6 @@ public class User extends AbstractModel<User> implements Serializable {
     public void setDob(Date dob) {
         this.dob = dob;
     }
-
 }
 
 

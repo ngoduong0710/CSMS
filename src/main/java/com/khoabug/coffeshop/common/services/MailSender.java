@@ -3,6 +3,8 @@ package com.khoabug.coffeshop.common.services;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Date;
 import java.util.Properties;
@@ -11,10 +13,11 @@ import java.util.Properties;
  * @author : khoabug
  * @created : 8/6/23, Sunday
  **/
-public class GMailService {
+public class MailSender {
 
-    static final String FROM = "khoatdqe170041@fpt.edu.vn";
-    static final String PASSWORD = "dbekukgbomyxnoia";
+    static final String FROM = "csms.prj301@gmail.com";
+    static final String PASSWORD = "ybaynitxsdtdedta";
+    private static final Logger LOGGER = LogManager.getLogger(MailSender.class);
 
     public static boolean sendEmail(String to, String title, String content) {
         // Properties : khai báo các thuộc tính
@@ -62,20 +65,12 @@ public class GMailService {
 
             // Gửi email
             Transport.send(msg);
-            System.out.println("Gửi email thành công");
+            LOGGER.info("gui mail thanh cong");
             return true;
         } catch (Exception e) {
 
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e.getCause());
             return false;
         }
     }
-
-//    public static void main(String[] args) {
-//        for (int i = 0; i < 10; i++) {
-//            GMailService.sendEmail("trandangkhoa12123@gmail.com", System.currentTimeMillis() + "", "Đây là phần nội dung!");
-//        }
-//
-//    }
-
 }

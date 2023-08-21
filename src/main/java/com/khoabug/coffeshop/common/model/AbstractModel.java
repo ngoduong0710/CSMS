@@ -12,7 +12,7 @@ public class AbstractModel<T> {
     private String id;
     private Date createdDate;
     private Date modifiedDate;
-    private boolean isActive;
+    private Boolean isActive;
     private T modifiedBy;
     private T createdBy;
 
@@ -40,11 +40,11 @@ public class AbstractModel<T> {
         this.modifiedDate = modifiedDate;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         isActive = active;
     }
 

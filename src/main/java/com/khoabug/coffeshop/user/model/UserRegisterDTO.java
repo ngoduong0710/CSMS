@@ -5,12 +5,13 @@ package com.khoabug.coffeshop.user.model;
  * @author : khoabug
  * @created : 7/24/23, Monday
  **/
-public class UserSignupRequest {
+public class UserRegisterDTO {
     private String id;
     private String email;
     private String name;
     private String password;
     private String roleId;
+    private Boolean isActive;
 
     public String getId() {
         return id;
@@ -18,6 +19,14 @@ public class UserSignupRequest {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public String getPassword() {

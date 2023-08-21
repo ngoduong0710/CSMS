@@ -12,10 +12,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Nhan vien</title>
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <title>Thêm Nhân Viên</title>
     <link href="assets/css/styles.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="assets/image/favicon.png">
     <script data-search-pseudo-elements defer
@@ -24,6 +21,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="assets/js/sweetalert2.all.min.js"></script>
     <script src="assets/js/user/user-name-concat.js"></script>
 </head>
 
@@ -42,14 +40,14 @@
                                     <div class="page-header-icon">
                                         <i data-feather="user-plus"></i>
                                     </div>
-                                    Them nhan vien
+                                    Thêm nhân viên
                                 </h1>
                             </div>
                             <div class="col-12 col-xl-auto mb-3">
                                 <a class="btn btn-sm btn-light text-primary"
-                                   href="${pageContext.request.contextPath}/users?page=1&size=10">
+                                   href="./users?page=1&size=10">
                                     <i class="me-1" data-feather="arrow-left"></i>
-                                    Tro lai danh sach
+                                    Trở lại danh sách
                                 </a>
                             </div>
                         </div>
@@ -62,60 +60,64 @@
                     <div class="col-xl-4">
                         <!-- Profile picture card-->
                         <div class="card mb-4 mb-xl-0">
-                            <div class="card-header">Profile Picture</div>
+                            <div class="card-header">Ảnh hồ sơ</div>
                             <div class="card-body text-center">
                                 <!-- Profile picture image-->
                                 <img class="img-account-profile rounded-circle mb-2"
-                                     src="assets/img/demo/user-placeholder.svg" alt="">
+                                     src="assets/image/user-placeholder.svg" alt="">
                                 <!-- Profile picture help block-->
-                                <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                                <div class="small font-italic text-muted mb-4">JPG hoặc PNG không lớn hơn 5 MB</div>
                                 <!-- Profile picture upload button-->
                                 <input class="d-none" id="profile-image" type="file">
-                                <label class="btn btn-primary" for="profile-image">Upload new
-                                    image</label>
+                                <label class="btn btn-primary" for="profile-image">Tải ảnh mới</label>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-8">
                         <!-- Account details card-->
                         <div class="card mb-4">
-                            <div class="card-header">Account Details</div>
+                            <div class="card-header">Thông tin tài khoản</div>
                             <div class="card-body">
-                                <form action="${pageContext.request.contextPath}/add-user" method="post">
+                                <form action="./add-user" method="post">
                                     <!-- Form Row-->
                                     <div class="row gx-3 mb-3">
                                         <!-- Form Group (last name)-->
                                         <div class="col-md-6">
-                                            <label class="small mb-1" for="inputLastName">Last name</label>
+                                            <label class="small mb-1" for="inputLastName">Họ</label>
                                             <input class="form-control" id="inputLastName" type="text"
-                                                   placeholder="Enter your last name">
+                                                   title="Không chứa số và kí tự đặc biệt"
+                                                   placeholder="Nhập họ" pattern="[\p{L} ]{1,7}" required>
                                         </div>
                                         <!-- Form Group (first name)-->
                                         <div class="col-md-6">
-                                            <label class="small mb-1" for="inputFirstName">First name</label>
+                                            <label class="small mb-1" for="inputFirstName">Tên</label>
                                             <input class="form-control" id="inputFirstName" type="text"
-                                                   placeholder="Enter your first name">
+                                                   placeholder="Nhập tên" pattern="[\p{L} ]{1,35}"
+                                                   title="Không chứa số và kí tự đặc biệt"
+                                                   required>
                                         </div>
                                         <input name="name" id="inputFullName" type="hidden">
                                     </div>
                                     <!-- Form Group (email address)-->
                                     <div class="mb-3">
-                                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                                        <label class="small mb-1" for="inputEmailAddress">Email</label>
                                         <input class="form-control" id="inputEmailAddress" type="email"
-                                               placeholder="Enter your email address" name="email">
+                                               placeholder="Nhập tài khoản email" name="email"
+                                               required>
                                     </div>
                                     <!-- Form Group (Roles)-->
                                     <div class="mb-3">
-                                        <label class="small mb-1">Role</label>
-                                        <select class="form-select" name="roleId" aria-label="Default select example">
-                                            <option selected="" disabled="">Select a role:</option>
+                                        <label class="small mb-1">Quyền</label>
+                                        <select class="form-select" name="roleId" aria-label="Default select example"
+                                                required>
+                                            <option selected="" value="" disabled="">Chọn quyền:</option>
                                             <c:forEach var="role" items="${requestScope.roles}">
                                                 <option value="${role.id}">${role.name}</option>
                                             </c:forEach>
                                         </select>
                                     </div>
                                     <!-- Submit button-->
-                                    <button class="btn btn-primary summit" type="submit">Add user</button>
+                                    <button class="btn btn-primary summit" type="submit">Thêm</button>
                                 </form>
                             </div>
                         </div>
@@ -126,12 +128,10 @@
         <jsp:include page="/footer.jsp"></jsp:include>
     </div>
 </div>
+<jsp:include page="/assets/js/user/user-add.jsp"></jsp:include>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="assets/js/scripts.js"></script>
-<script src="assets/js/simple-datatables.js"></script>
-<script src="assets/js/datatables-simple-demo.js"></script>
 <script src="https://assets.startbootstrap.com/js/sb-customizer.js"></script>
 </body>
-
 </html>

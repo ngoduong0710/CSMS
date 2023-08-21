@@ -6,6 +6,6 @@ import java.sql.ResultSet;
  * @author : DangKhoa
  * @since : 3/2/2023, Thu
  **/
-public interface RowMapper<T> {
-    T mapRow(ResultSet resultSet);
+public interface RowMapper<K> {
+    K mapRow(ResultSet resultSet);
 }

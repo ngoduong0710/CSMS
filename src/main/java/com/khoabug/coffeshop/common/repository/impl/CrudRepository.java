@@ -16,14 +16,14 @@ import java.util.List;
  * @author : DangKhoa
  * @since : 3/2/2023, Thu
  **/
-public class CrudRepository<T> implements Repository<T> {
+public class CrudRepository implements Repository {
 
-    private Connection connection = JdbcFactory.getConnection();
+    private Connection connection = SqlConnector.getConnection();
     private static final Logger LOGGER = LogManager.getLogger(CrudRepository.class);
 
     @Override
-    public List<T> query(String sql, RowMapper<T> mapper, Object... parameters) {
-        ArrayList<T> list = new ArrayList<>();
+    public <K> List<K> query(String sql, RowMapper<K> mapper, Object... parameters) {
+        ArrayList<K> list = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             setParameter(statement, parameters);
             ResultSet resultSet = statement.executeQuery();
@@ -32,13 +32,14 @@ public class CrudRepository<T> implements Repository<T> {
             }
             return list;
         } catch (SQLException ex) {
-            LOGGER.error(ex.getMessage());
+            LOGGER.error(ex.getMessage(), ex.getCause());
             throw new NotFoundException();
         }
     }
 
+
     @Override
-    public List<T> query(Pageable pageable, RowMapper<T> mapper, String inputSql) {
+    public <K> List<K> query(Pageable pageable, RowMapper<K> mapper, String inputSql) {
         StringBuilder sql = new StringBuilder(inputSql);
         if (pageable != null && pageable.getSorter() == null) {
             sql.append(" ORDER BY (SELECT NULL) OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
@@ -46,10 +47,12 @@ public class CrudRepository<T> implements Repository<T> {
         } else if (pageable == null) {
             return query(sql.toString(), mapper);
         } else {
-            sql.append(" ORDER BY (SELECT NULL) OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ");
-            return query(sql.toString(), mapper, pageable.getOffset(), pageable.getSize());
+            sql.append(" ORDER BY ? OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ");
+            return query(sql.toString(), mapper, pageable.getSorter().getProperty(),
+                    pageable.getOffset(), pageable.getSize());
         }
     }
+
 
     @Override
     public void update(String sql, Object... parameters) {
@@ -59,11 +62,11 @@ public class CrudRepository<T> implements Repository<T> {
             statement.executeUpdate();
             connection.commit();
         } catch (SQLException ex) {
-            LOGGER.error(ex.getMessage());
+            LOGGER.error(ex.getMessage(), ex.getCause());
             try {
                 connection.rollback();
             } catch (SQLException exception) {
-                LOGGER.error(exception.getMessage());
+                LOGGER.error(exception.getMessage(), exception.getCause());
                 throw new NotCreatException();
             }
         }
@@ -79,11 +82,11 @@ public class CrudRepository<T> implements Repository<T> {
             connection.commit();
             return statement.getGeneratedKeys().getLong(1);
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e.getCause());
             try {
                 connection.rollback();
             } catch (SQLException exception) {
-                LOGGER.error(e.getMessage());
+                LOGGER.error(exception.getMessage(), exception.getCause());
                 throw new NotCreatException();
             }
         }
@@ -96,12 +99,23 @@ public class CrudRepository<T> implements Repository<T> {
             setParameter(statement, parameters);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next())
-            return resultSet.getInt(1);
+                return resultSet.getInt(1);
         } catch (SQLException ex) {
-            LOGGER.error(ex.getMessage());
-            return -1;
+            LOGGER.error(ex.getMessage(), ex.getCause());
         }
         return -1;
+    }
+
+    public String getFirstStringColumn(String sql, Object... parameters) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            setParameter(statement, parameters);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+                return resultSet.getString(1);
+        } catch (SQLException ex) {
+            LOGGER.error(ex.getMessage(), ex.getCause());
+        }
+        return null;
     }
 
     //TODO: change generic type
@@ -120,27 +134,27 @@ public class CrudRepository<T> implements Repository<T> {
                     statement.setInt(index, (Integer) parameter);
                 } else if (parameter instanceof Timestamp) {
                     statement.setTimestamp(index, (Timestamp) parameter);
-                } else if (parameter instanceof Date){
+                } else if (parameter instanceof Date) {
                     statement.setDate(index, (Date) parameter);
-                } else if (parameter instanceof Boolean){
-                    statement.setBoolean(index,(Boolean) parameter);
+                } else if (parameter instanceof Boolean) {
+                    statement.setBoolean(index, (Boolean) parameter);
                 } else {
                     statement.setNull(index, Types.NULL);
                     LOGGER.error("parameter is null" + index);
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e.getCause());
         }
     }
 
-    static class JdbcFactory {
-        static Connection getConnection() {
+    public static class SqlConnector {
+        public static Connection getConnection() {
             try {
                 Class.forName(SQLSERVER_DRIVER);
                 return DriverManager.getConnection(MSSQL_URL);
             } catch (SQLException | ClassNotFoundException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.error(e.getMessage(), e.getCause());
             }
             return null;
         }

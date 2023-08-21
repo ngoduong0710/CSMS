@@ -39,8 +39,7 @@ public class PBKDF2Hasher {
 
     private final int cost;
 
-    public PBKDF2Hasher()
-    {
+    public PBKDF2Hasher() {
         this(DEFAULT_COST);
     }
 
@@ -49,15 +48,13 @@ public class PBKDF2Hasher {
      *
      * @param cost the exponential computational cost of hashing a password, 0 to 30
      */
-    public PBKDF2Hasher(int cost)
-    {
+    public PBKDF2Hasher(int cost) {
         iterations(cost); /* Validate cost */
         this.cost = cost;
         this.random = new SecureRandom();
     }
 
-    private static int iterations(int cost)
-    {
+    private static int iterations(int cost) {
         if ((cost < 0) || (cost > 30))
             throw new IllegalArgumentException("cost: " + cost);
         return 1 << cost;
@@ -68,8 +65,7 @@ public class PBKDF2Hasher {
      *
      * @return a secure authentication token to be stored for later authentication
      */
-    public String hash(char[] password)
-    {
+    public String hash(char[] password) {
         byte[] salt = new byte[SIZE / 8];
         random.nextBytes(salt);
         byte[] dk = pbkdf2(password, salt, 1 << cost);
@@ -85,8 +81,7 @@ public class PBKDF2Hasher {
      *
      * @return true if the password and token match
      */
-    public boolean checkPassword(char[] password, String token)
-    {
+    public boolean checkPassword(char[] password, String token) {
         Matcher m = layout.matcher(token);
         if (!m.matches())
             throw new IllegalArgumentException("Invalid token format");
@@ -100,29 +95,29 @@ public class PBKDF2Hasher {
         return zero == 0;
     }
 
-    private static byte[] pbkdf2(char[] password, byte[] salt, int iterations)
-    {
+    private static byte[] pbkdf2(char[] password, byte[] salt, int iterations) {
         KeySpec spec = new PBEKeySpec(password, salt, iterations, SIZE);
         try {
             SecretKeyFactory f = SecretKeyFactory.getInstance(ALGORITHM);
             return f.generateSecret(spec).getEncoded();
-        }
-        catch (NoSuchAlgorithmException ex) {
+        } catch (NoSuchAlgorithmException ex) {
             throw new IllegalStateException("Missing algorithm: " + ALGORITHM, ex);
-        }
-        catch (InvalidKeySpecException ex) {
+        } catch (InvalidKeySpecException ex) {
             throw new IllegalStateException("Invalid SecretKeyFactory", ex);
         }
     }
 
 //    public static void main(String[] args) {
-//        String password = "admin";
-//        PBKDF2Hasher pbkdf2Hasher = new PBKDF2Hasher(1);
-//
-//        String encodepass=  pbkdf2Hasher.hash(password.toCharArray());
+//        String password = "ABC";
+//        PBKDF2Hasher pbkdf2Hasher = new PBKDF2Hasher();
+//        String newcodepass = pbkdf2Hasher.hash(password.toCharArray());
+//        String encodepass = "$31$16$kmNi2X9hfOFhLM5kWZZWsY31gDNtja0RuqwVRhpA2e8";
 //
 //        boolean isValidPass = pbkdf2Hasher.checkPassword(password.toCharArray(), encodepass);
-//        if (isValidPass)
-//        System.out.println(encodepass);
+//        if (isValidPass) {
+//            System.out.println("Check");
+//            System.out.println("pass ms:" + newcodepass);
+//            System.out.println("pass cu"+ encodepass);
+//        }
 //    }
 }

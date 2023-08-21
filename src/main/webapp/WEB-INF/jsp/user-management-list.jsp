@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: KhoaBug
+  Date: 8/16/2023
+  Time: 3:08 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -17,12 +24,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="assets/js/user/user-activate-change-id.js"></script>
+    <script src="assets/js/sweetalert2.all.min.js"></script>
 </head>
 
 <body class="nav-fixed">
-<jsp:include page="/assets/common/user/user-deactivate-confirm-modal.jsp"></jsp:include>
-<jsp:include page="/assets/common/user/user-reactivate-confirm-modal.jsp"></jsp:include>
 <jsp:include page="/header.jsp"></jsp:include>
 <div id="layoutSidenav">
     <jsp:include page="/navBar.jsp"></jsp:include>
@@ -37,19 +42,13 @@
                                     <div class="page-header-icon">
                                         <i data-feather="user"></i>
                                     </div>
-                                    Danh sach nhan vien
+                                    Danh sách nhân viên
                                 </h1>
                             </div>
                             <div class="col-12 col-xl-auto mb-3">
-                                <a class="btn btn-sm btn-light text-primary"
-                                   href="#">
-                                    <i class="me-1" data-feather="users"></i>
-                                    Quan ly quyen
-                                </a>
-                                <a class="btn btn-sm btn-light text-primary"
-                                   href="${pageContext.request.contextPath}/add-user">
+                                <a class="btn btn-sm btn-light text-primary" href="./add-user">
                                     <i class="me-1" data-feather="user-plus"></i>
-                                    Them nhan vien
+                                    Thêm nhân viên
                                 </a>
                             </div>
                         </div>
@@ -59,15 +58,15 @@
             <!-- Main page content-->
             <div class="container-fluid px-4">
                 <div class="card mb-4">
-                    <div class="card-header">Nhan vien</div>
+                    <div class="card-header">Nhân viên</div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                             <tr>
+                                <th>Id</th>
                                 <th>Họ và tên</th>
                                 <th>Email</th>
                                 <th>Vai trò</th>
-                                <th>Ngày sinh</th>
                                 <th>Trạng thái</th>
                                 <th>Hành động</th>
                             </tr>
@@ -75,10 +74,10 @@
                             <tbody>
                             <c:forEach var="user" items="${requestScope.users}">
                                 <tr>
+                                    <td>${user.id}</td>
                                     <td>${user.name}</td>
                                     <td>${user.email}</td>
                                     <td>${user.role.name}</td>
-                                    <td>${user.dob}</td>
                                     <td>
                                         <c:choose>
                                             <c:when test="${user.active==true}">
@@ -91,21 +90,19 @@
                                     </td>
                                     <td>
                                         <a class="btn btn-datatable btn-icon btn-transparent-dark me-2"
-                                           href="${pageContext.request.contextPath}/edit-user?id=${user.id}">
+                                           href="./edit-user?id=${user.id}">
                                             <i data-feather="edit"></i>
                                         </a>
                                         <c:choose>
-                                            <c:when test="${user.active==true}">
+                                            <c:when test="${(user.active==true)}">
                                                 <button class="btn btn-datatable btn-icon btn-transparent-dark deactivate"
-                                                        data-bs-toggle="modal" data-bs-target="#deactivateModal">
+                                                        value="${user.id}">
                                                     <i data-feather="trash-2"></i>
-                                                    <input type="hidden" name="current-id" id="id" value="${user.id}">
                                                 </button>
                                             </c:when>
                                             <c:otherwise>
                                                 <button class="btn btn-datatable btn-icon btn-transparent-dark me-2 reactivate"
-                                                        data-bs-toggle="modal" data-bs-target="#reactivateModal">
-                                                    <input type="hidden" name="current-id" id="id" value="${user.id}">
+                                                        value="${user.id}">
                                                     <i data-feather="rotate-ccw"></i>
                                                 </button>
                                             </c:otherwise>
@@ -122,11 +119,19 @@
         <jsp:include page="/footer.jsp"></jsp:include>
     </div>
 </div>
+<jsp:include page="/assets/js/user/user-active.jsp"></jsp:include>
+<script>
+    window.addEventListener('DOMContentLoaded', event => {
+        const datatablesSimple = document.getElementById('datatablesSimple');
+        if (datatablesSimple) {
+            new simpleDatatables.DataTable(datatablesSimple);
+        }
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="assets/js/scripts.js"></script>
 <script src="assets/js/simple-datatables.js"></script>
-<script src="assets/js/datatables-simple-demo.js"></script>
 <script src="https://assets.startbootstrap.com/js/sb-customizer.js"></script>
 </body>
 

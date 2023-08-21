@@ -8,9 +8,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class RequestMappingService {
+public class RequestMapper {
 
-    private static final Logger LOGGER = LogManager.getLogger(RequestMappingService.class);
+    private static final Logger LOGGER = LogManager.getLogger(RequestMapper.class);
 
     public static <T> T toModel(Class<T> type, HttpServletRequest request) {
         T bean = null;
@@ -18,7 +18,7 @@ public class RequestMappingService {
             bean = type.getConstructor().newInstance();
             BeanUtils.populate(bean, request.getParameterMap());
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e.getCause());
         }
         return bean;
     }

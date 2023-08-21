@@ -12,7 +12,7 @@ import java.util.stream.Stream;
  * @author : khoabug
  * @created : 8/6/23, Sunday
  **/
-public class GeneratePasswordService {
+public class RandomPasswordGenerator {
 
     private final static Random random = new SecureRandom();
 

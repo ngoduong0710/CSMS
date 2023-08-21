@@ -1,6 +1,6 @@
 package com.khoabug.coffeshop.common.paging;
 
-import com.khoabug.coffeshop.common.services.RequestMappingService;
+import com.khoabug.coffeshop.common.services.RequestMapper;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class Pageable {
@@ -11,7 +11,7 @@ public class Pageable {
     private Sorter sorter;
 
     public static Pageable of(Sorter sorter, HttpServletRequest request, int totalItem) {
-        Pageable pageable = RequestMappingService.toModel(Pageable.class, request);
+        Pageable pageable = RequestMapper.toModel(Pageable.class, request);
         pageable.setSorter(sorter);
         pageable.setTotalItem(totalItem);
         return pageable;
