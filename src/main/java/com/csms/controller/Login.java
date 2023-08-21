@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 
 @WebServlet(name = "Login", urlPatterns = {"/login"})
 public class Login extends HttpServlet {
+    private static final String ID = "id";
     private static final String EMAIL = "email";
     private static final String FULL_NAME = "fullname";
     private static final String PASS_WORD = "password";
@@ -51,6 +52,7 @@ public class Login extends HttpServlet {
         try {
             if (adb.checkLogin(email, pass)) {
                 HttpSession session = request.getSession();
+                session.setAttribute(ID, adb.getId(email));
                 session.setAttribute(EMAIL, email);
                 session.setAttribute(FULL_NAME, adb.getFullName(email));
                 session.setAttribute(AUTHORIZE, getAuthorize(adb.getRoleId(email)));
