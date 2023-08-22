@@ -51,14 +51,14 @@ public class AccountDAO extends DBContext {
         return list;
     }
 
-    public String getRoleId(String email) {
-        String sql = "SELECT Role_id FROM Account WHERE Email=?";
+    public String getId(String email) {
+        String sql = "SELECT Id FROM Account WHERE Email=?";
         try {
             st = connection.prepareStatement(sql);
             st.setString(1, email);
             rs = st.executeQuery();
             if (rs.next()) {
-                return rs.getString(ROLE_ID);
+                return rs.getString(ID);
             }
         } catch (SQLException e) {
             logger.error(ERR, e.getMessage());
@@ -74,6 +74,21 @@ public class AccountDAO extends DBContext {
             rs = st.executeQuery();
             if (rs.next()) {
                 return rs.getString(FULL_NAME);
+            }
+        } catch (SQLException e) {
+            logger.error(ERR, e.getMessage());
+        }
+        return null;
+    }
+
+    public String getRoleId(String email) {
+        String sql = "SELECT Role_id FROM Account WHERE Email=?";
+        try {
+            st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getString(ROLE_ID);
             }
         } catch (SQLException e) {
             logger.error(ERR, e.getMessage());
