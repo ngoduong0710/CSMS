@@ -16,7 +16,9 @@ public class DAO extends DBContext{
     // read all records from table 'categories' trong sql Server
     public ArrayList<Category> getAllCategories(){
         ArrayList<Category> list = new ArrayList<>();
-        String sql = "select * from Category";
+        String sql = "SELECT [Id]\n" +
+                "      ,[Name]\n" +
+                "  FROM [dbo].[Category]";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -33,7 +35,9 @@ public class DAO extends DBContext{
     
     
     public Category getCategoryById(String id){
-        String sql = "select * from Category where Id=?";
+        String sql = "SELECT [Id]\n" +
+                "      ,[Name]\n" +
+                "  FROM [dbo].[Category] where Id=?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, id);
@@ -52,7 +56,17 @@ public class DAO extends DBContext{
     
     public ArrayList<Drink> searchByPredicates(String cid,String price,String name){
         ArrayList<Drink> listD = new ArrayList<>();
-        String sql = "select * from Drink where 3=3";
+        String sql = "SELECT [Id]\n" +
+                "      ,[Category_id]\n" +
+                "      ,[Name]\n" +
+                "      ,[Path_image]\n" +
+                "      ,[Price]\n" +
+                "      ,[Status]\n" +
+                "      ,[CreatedAt]\n" +
+                "      ,[CreatedBy]\n" +
+                "      ,[ModifiedAt]\n" +
+                "      ,[ModifiedBy]\n" +
+                "  FROM [dbo].[Drink] where 3=3";
         if(!cid.equals("C0")){
             System.out.println(cid);
             sql+=" and Category_id='"+cid+"'";
@@ -92,7 +106,17 @@ public class DAO extends DBContext{
    
     public ArrayList<Drink> getDrinkByCid(String cid){
         ArrayList<Drink> listD = new ArrayList<>();
-        String sql = "select * from Drink where 3=3";
+        String sql = "SELECT [Id]\n" +
+                "      ,[Category_id]\n" +
+                "      ,[Name]\n" +
+                "      ,[Path_image]\n" +
+                "      ,[Price]\n" +
+                "      ,[Status]\n" +
+                "      ,[CreatedAt]\n" +
+                "      ,[CreatedBy]\n" +
+                "      ,[ModifiedAt]\n" +
+                "      ,[ModifiedBy]\n" +
+                "  FROM [dbo].[Drink] where 3=3";
         if(!cid.equals("C0")){
             sql+=" and Category_id='"+cid+"'";
         }
@@ -118,7 +142,17 @@ public class DAO extends DBContext{
     }
     
     public Drink getDrinkByid(String id){
-        String sql = "select * from Drink where Id =?";
+        String sql = "SELECT [Id]\n" +
+                "      ,[Category_id]\n" +
+                "      ,[Name]\n" +
+                "      ,[Path_image]\n" +
+                "      ,[Price]\n" +
+                "      ,[Status]\n" +
+                "      ,[CreatedAt]\n" +
+                "      ,[CreatedBy]\n" +
+                "      ,[ModifiedAt]\n" +
+                "      ,[ModifiedBy]\n" +
+                "  FROM [dbo].[Drink] where Id =?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, id);
@@ -143,7 +177,16 @@ public class DAO extends DBContext{
     
     public ArrayList<Ingredient> searchByName(String name){
         ArrayList<Ingredient> listNL = new ArrayList<>();
-        String sql = "select * from Ingredient where [name] like ?";
+        String sql = "SELECT [Id]\n" +
+                "      ,[Name]\n" +
+                "      ,[Weight]\n" +
+                "      ,[Date]\n" +
+                "      ,[Status]\n" +
+                "      ,[CreatedAt]\n" +
+                "      ,[CreatedBy]\n" +
+                "      ,[ModifiedAt]\n" +
+                "      ,[ModifiedBy]\n" +
+                "  FROM [dbo].[Ingredient] where [name] like ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1,"%"+name+"%");
@@ -238,7 +281,17 @@ public class DAO extends DBContext{
     }
 
     public String getDrinkNameById(String id) {
-        String sql = "SELECT * FROM Drink WHERE Id=?";
+        String sql = "SELECT [Id]\n" +
+                "      ,[Category_id]\n" +
+                "      ,[Name]\n" +
+                "      ,[Path_image]\n" +
+                "      ,[Price]\n" +
+                "      ,[Status]\n" +
+                "      ,[CreatedAt]\n" +
+                "      ,[CreatedBy]\n" +
+                "      ,[ModifiedAt]\n" +
+                "      ,[ModifiedBy]\n" +
+                "  FROM [dbo].[Drink] WHERE Id=?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, id);
@@ -283,7 +336,12 @@ public class DAO extends DBContext{
     }
 
     public List<OrderLine02> getAllOrderlineByBillId(String id){
-        String sql = "SELECT * FROM OrderLine WHERE Bill_id=?";
+        String sql = "SELECT [Id]\n" +
+                "      ,[Bill_id]\n" +
+                "      ,[Drink_id]\n" +
+                "      ,[Price]\n" +
+                "      ,[Number]\n" +
+                "  FROM [dbo].[OrderLine] WHERE Bill_id=?";
         List<OrderLine02> list = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -329,7 +387,16 @@ public class DAO extends DBContext{
 // ======= Ingredient =================================================
     
     public Ingredient getIngredientById(String id){
-        String sql = "select * from Ingredient where Id =?";
+        String sql = "SELECT [Id]\n" +
+                "      ,[Name]\n" +
+                "      ,[Weight]\n" +
+                "      ,[Date]\n" +
+                "      ,[Status]\n" +
+                "      ,[CreatedAt]\n" +
+                "      ,[CreatedBy]\n" +
+                "      ,[ModifiedAt]\n" +
+                "      ,[ModifiedBy]\n" +
+                "  FROM [dbo].[Ingredient] where Id =?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, id);
@@ -350,7 +417,16 @@ public class DAO extends DBContext{
     
     public ArrayList<Ingredient> getAllIngredients(){
         ArrayList<Ingredient> listNL = new ArrayList<>();
-        String sql = "select * from Ingredient";
+        String sql = "SELECT [Id]\n" +
+                "      ,[Name]\n" +
+                "      ,[Weight]\n" +
+                "      ,[Date]\n" +
+                "      ,[Status]\n" +
+                "      ,[CreatedAt]\n" +
+                "      ,[CreatedBy]\n" +
+                "      ,[ModifiedAt]\n" +
+                "      ,[ModifiedBy]\n" +
+                "  FROM [dbo].[Ingredient]";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -428,7 +504,10 @@ public class DAO extends DBContext{
     
     public ArrayList<IngredientPerDay> getAllIngredientsPerDay(){
         ArrayList<IngredientPerDay> listNLPD = new ArrayList<>();
-        String sql = "select * from Materials_Use_Per_Day";
+        String sql = "SELECT [Id]\n" +
+                "      ,[Ingredient_id]\n" +
+                "      ,[WeightPD]\n" +
+                "  FROM [dbo].[Materials_Use_Per_Day]";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();

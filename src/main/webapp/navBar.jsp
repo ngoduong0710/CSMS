@@ -44,7 +44,6 @@
                                 <nav class="sidenav-menu-nested nav" aria-label="rolenav">
                                     <a class="nav-link" href="listRole">Danh sách vai trò</a>
                                     <a class="nav-link" href="addRole.jsp">Thêm vai trò</a>
-                                    <a class="nav-link" href="editRole.jsp">Sửa vai trò</a>
                                 </nav>
                             </div>
                         </c:when>

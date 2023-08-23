@@ -39,6 +39,6 @@ public class AddDrink extends HttpServlet {
             e.printStackTrace();
         }
 
-        request.getRequestDispatcher("viewDrinks").forward(request, response);
+        request.getRequestDispatcher("viewDrinks?navbar=drink").forward(request, response);
     }
 }

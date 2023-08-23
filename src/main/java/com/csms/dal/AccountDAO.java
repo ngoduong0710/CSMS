@@ -28,7 +28,15 @@ public class AccountDAO extends DBContext {
 
     public List<Account> getAll() {
         List<Account> list = new ArrayList<>();
-        String sql = "SELECT * FROM Account";
+        String sql = "SELECT [Id]\n" +
+                "      ,[Email]\n" +
+                "      ,[Password]\n" +
+                "      ,[Fullname]\n" +
+                "      ,[Dob]\n" +
+                "      ,[Role_id]\n" +
+                "      ,[Gender]\n" +
+                "      ,[Status]\n" +
+                "  FROM [dbo].[Account]";
         try {
             DBContext dbContext = new DBContext();
             st = dbContext.connection.prepareStatement(sql);
@@ -97,7 +105,7 @@ public class AccountDAO extends DBContext {
     }
 
     public boolean checkLogin(String email, String pass) {
-        String sql = "SELECT * FROM Account WHERE Email=? AND Status=1";
+        String sql = "SELECT Password FROM Account WHERE Email=? AND Status=1";
         try {
             st = connection.prepareStatement(sql);
             st.setString(1, email);
@@ -112,7 +120,7 @@ public class AccountDAO extends DBContext {
     }
 
     public boolean checkEmailExist(String email) {
-        String sql = "SELECT * FROM Account WHERE Email=?";
+        String sql = "SELECT Id FROM Account WHERE Email=?";
         try {
             st = connection.prepareStatement(sql);
             st.setString(1, email);
