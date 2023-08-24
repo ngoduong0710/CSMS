@@ -31,6 +31,7 @@ public class SendPassword implements ServletContextAttributeListener {
                 event.getServletContext().removeAttribute(SEND_INFO);
             }
         });
+        executor.shutdown();
     }
 
     public record SendInfo(String receiveEmail, String password) {
