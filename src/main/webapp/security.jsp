@@ -9,16 +9,20 @@
     <title>Hồ sơ - CSMS</title>
     <link href="./assets/css/styles.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="./assets/image/favicon.png">
-    <script data-search-pseudo-elements defer src="./assets/js/all.min.js"></script>
+    <script data-search-pseudo-elements defer
+            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"
+            crossorigin="anonymous"></script>
     <script src="assets/js/sweetalert2.all.min.js"></script>
     <script src="./assets/js/feather.min.js"></script>
 </head>
 <body class="nav-fixed">
-<%
-    if (session == null || session.getAttribute("email") == null) {
-        response.sendRedirect("login.jsp");
-    }
-%>
+<%--<%--%>
+<%--    if (session == null || session.getAttribute("email") == null) {--%>
+<%--        response.sendRedirect("login.jsp");--%>
+<%--    }--%>
+<%--%>--%>
 <jsp:include page="header.jsp"/>
 <div id="layoutSidenav">
     <jsp:include page="navBar.jsp"/>
@@ -67,7 +71,7 @@
                                         <label class="small mb-1" for="newPassword">Mật khẩu mới</label>
                                         <input class="form-control" id="newPassword" type="password"
                                                name="newPassword"
-                                               placeholder="Nhập mật khẩu mới" required>
+                                               placeholder="Nhập mật khẩu mới" required pattern=".{6,10}"  title="Mật khẩu ít nhất 6 ký tự">
                                     </div>
                                     <!-- Form Group (confirm password)-->
                                     <div class="mb-3">
@@ -88,39 +92,10 @@
         <jsp:include page="footer.jsp"/>
     </div>
 </div>
-<script type="text/javascript">
-    <c:if test="${not empty requestScope.errorMessage}">
-    Swal.fire({
-        title: "Loi",
-        text: "${requestScope.errorMessage}",
-        icon: 'error',
-        allowOutsideClick: false
-    })
-    </c:if>
-    <c:if test="${not empty requestScope.successMessage}">
-    Swal.fire({
-        title: "Hoan tat",
-        text: "${requestScope.successMessage}",
-        icon: 'success',
-        allowOutsideClick: false
-    })
-    </c:if>
-
-    var new_password = document.getElementById("newPassword");
-    var confirm_password = document.getElementById("confirmPassword");
-
-    function validatePassword() {
-        if (new_password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Mật khẩu không khớp");
-        } else {
-            confirm_password.setCustomValidity('');
-        }
-    }
-    new_password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
-</script>
-<script src="./assets/js/custom-bundle.min.js"></script>
+<jsp:include page="/assets/js/user/user-security.jsp"></jsp:include>
 <script src="./assets/js/scripts.js"></script>
-<script src="./assets/js/sb-customizer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://assets.startbootstrap.com/js/sb-customizer.js"></script>
 </body>
 </html>

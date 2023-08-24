@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @WebServlet(name = "ActiveController", value = "/active-user")
 public class ActiveController extends HttpServlet {
-    private final String DEACTIVATE = "deactivate";
     private final String ACTIVATE = "reactivate";
 
     @Inject

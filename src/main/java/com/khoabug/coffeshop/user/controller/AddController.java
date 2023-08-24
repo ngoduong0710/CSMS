@@ -49,7 +49,7 @@ public class AddController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserRegisterDTO registerUser = RequestMapper.toModel(UserRegisterDTO.class, request);
 
-        if (userRepository.isExistEmail(registerUser.getEmail())) {
+        if (!userRepository.isExistEmail(registerUser.getEmail())) {
             String password = RandomPasswordGenerator.generateSecureRandomPassword();
             String hashedPassword = pbkdf2Hasher.hash(password.toCharArray());
             registerUser.setPassword(hashedPassword);

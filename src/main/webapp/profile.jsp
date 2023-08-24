@@ -114,9 +114,13 @@
                                                     <option value="1" selected>Nam</option>
                                                     <option value="0">Nữ</option>
                                                 </c:when>
-                                                <c:otherwise>
+                                                <c:when test="${requestScope.user.gender == false}">
                                                     <option value="1">Nam</option>
                                                     <option value="0" selected>Nữ</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="1">Nam</option>
+                                                    <option value="0">Nữ</option>
                                                 </c:otherwise>
                                             </c:choose>
                                         </select>
@@ -157,7 +161,7 @@
     </div>
 </div>
 <script src="assets/js/scripts.js"></script>
-<jsp:include page="/assets/js/user/profile.jsp"></jsp:include>
+<jsp:include page="/assets/js/user/user-profile.jsp"></jsp:include>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="https://assets.startbootstrap.com/js/sb-customizer.js"></script>

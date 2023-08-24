@@ -60,58 +60,77 @@
                 <div class="card mb-4">
                     <div class="card-header">Nhân viên</div>
                     <div class="card-body">
-                        <table id="datatablesSimple">
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Họ và tên</th>
-                                <th>Email</th>
-                                <th>Vai trò</th>
-                                <th>Trạng thái</th>
-                                <th>Hành động</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach var="user" items="${requestScope.users}">
-                                <tr>
-                                    <td>${user.id}</td>
-                                    <td>${user.name}</td>
-                                    <td>${user.email}</td>
-                                    <td>${user.role.name}</td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${user.active==true}">
-                                                <span class="badge bg-green rounded-pill">Active</span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span class="badge bg-red rounded-pill">Non-active</span>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-datatable btn-icon btn-transparent-dark me-2"
-                                           href="./edit-user?id=${user.id}">
-                                            <i data-feather="edit"></i>
-                                        </a>
-                                        <c:choose>
-                                            <c:when test="${(user.active==true)}">
-                                                <button class="btn btn-datatable btn-icon btn-transparent-dark deactivate"
-                                                        value="${user.id}">
-                                                    <i data-feather="trash-2"></i>
-                                                </button>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <button class="btn btn-datatable btn-icon btn-transparent-dark me-2 reactivate"
-                                                        value="${user.id}">
-                                                    <i data-feather="rotate-ccw"></i>
-                                                </button>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                        <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+                            <div class="datatable-top">
+                                <div class="datatable-search">
+                                    <%--@declare id="pageform"--%>
+                                    <input name="keyword" id="keyword" class="datatable-input" placeholder="Tìm kiếm..."
+                                           type="search"
+                                           form="pageForm"
+                                           title="Tìm kiếm trong bảng" value="${requestScope.keyword}"
+                                           aria-controls="datatablesSimple">
+                                </div>
+                            </div>
+                            <div class="datatable-container">
+                                <table id="datatablesSimple" class="datatable-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Họ và tên</th>
+                                        <th>Email</th>
+                                        <th>Vai trò</th>
+                                        <th>Trạng thái</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="user" items="${requestScope.users}">
+                                        <tr>
+                                            <td>${user.id}</td>
+                                            <td>${user.name}</td>
+                                            <td>${user.email}</td>
+                                            <td>${user.role.name}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${user.active==true}">
+                                                        <span class="badge bg-green rounded-pill">Active</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="badge bg-red rounded-pill">Non-active</span>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-datatable btn-icon btn-transparent-dark me-2"
+                                                   href="./edit-user?id=${user.id}">
+                                                    <i data-feather="edit"></i>
+                                                </a>
+                                                <c:choose>
+                                                    <c:when test="${(user.active==true)}">
+                                                        <button class="btn btn-datatable btn-icon btn-transparent-dark deactivate"
+                                                                value="${user.id}">
+                                                            <i data-feather="trash-2"></i>
+                                                        </button>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <button class="btn btn-datatable btn-icon btn-transparent-dark me-2 reactivate"
+                                                                value="${user.id}">
+                                                            <i data-feather="rotate-ccw"></i>
+                                                        </button>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="datatable-bottom">
+                                <nav class="datatable-pagination">
+                                    <ul class="pagination datatable-pagination-list" id="pagination"></ul>
+                                </nav>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -120,19 +139,12 @@
     </div>
 </div>
 <jsp:include page="/assets/js/user/user-active.jsp"></jsp:include>
-<script>
-    window.addEventListener('DOMContentLoaded', event => {
-        const datatablesSimple = document.getElementById('datatablesSimple');
-        if (datatablesSimple) {
-            new simpleDatatables.DataTable(datatablesSimple);
-        }
-    });
-</script>
+<jsp:include page="/assets/js/user/user-paging.jsp"></jsp:include>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="assets/js/scripts.js"></script>
+<script src="assets/js/user/jq-paginator.js"></script>
 <script src="assets/js/simple-datatables.js"></script>
 <script src="https://assets.startbootstrap.com/js/sb-customizer.js"></script>
 </body>
-
 </html>

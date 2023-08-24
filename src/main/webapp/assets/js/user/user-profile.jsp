@@ -5,11 +5,12 @@
   Time: 2:41 AM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
     <c:if test="${not empty requestScope.errorMessage}">
     Swal.fire({
-        title: "Loi",
+        title: "Lỗi",
         text: "${requestScope.errorMessage}",
         icon: 'error',
         allowOutsideClick: false
@@ -21,7 +22,7 @@
     </c:if>
     <c:if test="${not empty requestScope.successMessage}">
     Swal.fire({
-        title: "Hoan tat",
+        title: "Hoàn tất",
         text: "${requestScope.successMessage}",
         icon: 'success',
         allowOutsideClick: false
@@ -35,13 +36,13 @@
     $(document).ready(function () {
         $('button.sure').on('click', function () {
             Swal.fire({
-                title: `Luu thay doi`,
-                text: "Ban co chac chan muon luu thay doi",
+                title: `Lưu thay đổi`,
+                text: "Bạn có chắc muốn lưu thay đổi",
                 icon: 'question',
                 showDenyButton: true,
                 allowOutsideClick: false,
-                confirmButtonText: 'Luu',
-                denyButtonText: `Huy`,
+                confirmButtonText: 'Lưu',
+                denyButtonText: `Hủy`,
             }).then((result) => {
                 if (result.isConfirmed) {
                     $('button.summit').click();

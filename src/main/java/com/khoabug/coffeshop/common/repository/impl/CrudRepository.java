@@ -1,8 +1,8 @@
 package com.khoabug.coffeshop.common.repository.impl;
 
+import com.khoabug.coffeshop.common.mapper.RowMapper;
 import com.khoabug.coffeshop.common.paging.Pageable;
 import com.khoabug.coffeshop.common.repository.Repository;
-import com.khoabug.coffeshop.common.mapper.RowMapper;
 import com.khoabug.coffeshop.common.repository.exception.NotCreatException;
 import com.khoabug.coffeshop.common.repository.exception.NotFoundException;
 import org.apache.logging.log4j.LogManager;
@@ -39,18 +39,20 @@ public class CrudRepository implements Repository {
 
 
     @Override
-    public <K> List<K> query(Pageable pageable, RowMapper<K> mapper, String inputSql) {
+    public <K> List<K> query(String inputSql, RowMapper<K> mapper, Pageable pageable, Object... parameters) {
         StringBuilder sql = new StringBuilder(inputSql);
         if (pageable != null && pageable.getSorter() == null) {
-            sql.append(" ORDER BY (SELECT NULL) OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
-            return query(sql.toString(), mapper, pageable.getOffset(), pageable.getSize());
-        } else if (pageable == null) {
-            return query(sql.toString(), mapper);
-        } else {
-            sql.append(" ORDER BY ? OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ");
-            return query(sql.toString(), mapper, pageable.getSorter().getProperty(),
-                    pageable.getOffset(), pageable.getSize());
+            sql.append(" ORDER BY (SELECT NULL) OFFSET " + pageable.getOffset()
+                    + " ROWS FETCH NEXT " + pageable.getSize()
+                    + " ROWS ONLY ");
         }
+        if (pageable != null && pageable.getSorter() != null) {
+            sql.append(" ORDER BY " + pageable.getSorter().getProperty()
+                    + " OFFSET " + pageable.getOffset()
+                    + " ROWS FETCH NEXT " + pageable.getSize()
+                    + " ROWS ONLY ");
+        }
+        return query(sql.toString(), mapper, parameters);
     }
 
 
@@ -140,7 +142,7 @@ public class CrudRepository implements Repository {
                     statement.setBoolean(index, (Boolean) parameter);
                 } else {
                     statement.setNull(index, Types.NULL);
-                    LOGGER.error("parameter is null" + index);
+                    LOGGER.debug("parameter is null index: " + index);
                 }
             }
         } catch (SQLException e) {

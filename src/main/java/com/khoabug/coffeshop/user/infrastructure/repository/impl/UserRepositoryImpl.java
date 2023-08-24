@@ -25,7 +25,18 @@ public class UserRepositoryImpl extends CrudRepository implements UserRepository
                 SELECT * FROM account
                 INNER JOIN role
                 where role.id = account.role_id """;
-        return query(pageable, new UserMapper(), sql);
+        return query(sql, new UserMapper(), pageable);
+    }
+
+    //TODO: insert all predicate
+    @Override
+    public List<User> findByIdOrEmailOrFullNameOrRole_Name(Pageable pageable, String predicate) {
+        String parameter = "%" + predicate + "%";
+        String sql = """
+                SELECT *
+                FROM ACCOUNT inner join ROLE R on R.ID = ACCOUNT.ROLE_ID
+                and lower(EMAIL + ACCOUNT.ID + NAME + FULLNAME) LIKE lower(?) """;
+        return query(sql, new UserMapper(), pageable, parameter);
     }
 
     @Override
@@ -36,7 +47,7 @@ public class UserRepositoryImpl extends CrudRepository implements UserRepository
                 WHERE ID = ?
                 """;
         update(sql, user.getEmail(), user.getName(), user.getRole().getId(),
-                user.getDob(), user.getGender() ? "Nam" : "Nữ", user.getActive(),
+                user.getDob(), user.getGender(), user.getActive(),
                 user.getId());
     }
 
@@ -116,5 +127,16 @@ public class UserRepositoryImpl extends CrudRepository implements UserRepository
     public int count() {
         String sql = "SELECT COUNT(*) FROM account ";
         return count(sql);
+    }
+
+    //TODO: insert all predicate
+    @Override
+    public int countByIdOrEmailOrFullNameOrRole_Name(String predicate) {
+        String parameter = "%" + predicate + "%";
+        String sql = """
+                SELECT COUNT(*)
+                FROM ACCOUNT inner join ROLE R on R.ID = ACCOUNT.ROLE_ID
+                and lower(EMAIL + ACCOUNT.ID + NAME + FULLNAME) LIKE lower(?) """;
+        return count(sql, parameter);
     }
 }

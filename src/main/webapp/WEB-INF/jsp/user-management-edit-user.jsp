@@ -91,14 +91,14 @@
                                             <label class="small mb-1" for="inputLastName">Họ</label>
                                             <input class="form-control" id="inputLastName" type="text"
                                                    title="Không chứa số và kí tự đặc biệt"
-                                                   placeholder="Nhập họ" pattern="[\p{L} ]{1,7}" required
+                                                   placeholder="Enter your last name" pattern="[\p{L} ]{1,7}" required
                                                    value="${lastName}">
                                         </div>
                                         <!-- Form Group (first name)-->
                                         <div class="col-md-6">
                                             <label class="small mb-1" for="inputFirstName">Tên</label>
                                             <input class="form-control" id="inputFirstName" type="text"
-                                                   placeholder="Nhập tên" pattern="[\p{L} ]{1,35}"
+                                                   placeholder="Enter your first name" pattern="[\p{L} ]{1,35}"
                                                    title="Không chứa số và kí tự đặc biệt"
                                                    required value="${firstName}">
                                         </div>
@@ -108,7 +108,7 @@
                                     <div class="mb-3">
                                         <label class="small mb-1" for="inputEmailAddress">Email</label>
                                         <input class="form-control" id="inputEmailAddress" type="email"
-                                               placeholder="Nhập địa chỉ email"
+                                               placeholder="Enter your email address"
                                                value="${requestScope.user.email}"
                                                name="email">
                                     </div>

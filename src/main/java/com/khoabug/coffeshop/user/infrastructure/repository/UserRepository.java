@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface UserRepository {
     List<User> findAll(Pageable pageable);
 
+    List<User> findByIdOrEmailOrFullNameOrRole_Name(Pageable pageable, String predicate);
 //    Long save(UserSignupRequest user);
 
     void save(UserRegisterDTO user);
@@ -33,5 +34,7 @@ public interface UserRepository {
     String findPassById(String id);
 
     int count();
+
+    int countByIdOrEmailOrFullNameOrRole_Name(String predicate);
 //    Optional<User> findByUserNameAndPassword(UserLoginRequest user);
 }

@@ -5,7 +5,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 import java.lang.reflect.InvocationTargetException;
 
 public class RequestMapper {

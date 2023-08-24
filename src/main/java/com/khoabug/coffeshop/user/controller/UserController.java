@@ -17,19 +17,31 @@ import java.io.IOException;
 @WebServlet(name = "UserController", urlPatterns = {"/users"})
 public class UserController extends HttpServlet {
 
+    private final String KEYWORD = "keyword";
+    private final String USERS = "users";
+    private final String PAGEABLE = "pageable";
+    private final String USERS_JSP_PATH = "/WEB-INF/jsp/user-management-list.jsp";
+
+
     @Inject
     private UserRepository repository;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String predicate = request.getParameter(KEYWORD);
         Pageable pageable = Pageable.of(
-                null,
-                request,
-                repository.count()
+                null, request, 0
         );
-        request.setAttribute("users", repository.findAll(pageable));
-        request.setAttribute("page", pageable);
-        request.getRequestDispatcher("/WEB-INF/jsp/user-management-list.jsp").forward(request, response);
+        if (predicate == null || predicate.isBlank()) {
+            pageable.setTotalItem(repository.count());
+            request.setAttribute(USERS, repository.findAll(pageable));
+        } else {
+            pageable.setTotalItem(repository.countByIdOrEmailOrFullNameOrRole_Name(predicate));
+            request.setAttribute(USERS, repository.findByIdOrEmailOrFullNameOrRole_Name(pageable, predicate));
+            request.setAttribute(KEYWORD, predicate);
+        }
+        request.setAttribute(PAGEABLE, pageable);
+        request.getRequestDispatcher(USERS_JSP_PATH).forward(request, response);
     }
 
 }

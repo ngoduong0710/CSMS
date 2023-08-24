@@ -11,19 +11,29 @@ import java.util.List;
  **/
 public interface Repository {
 
-    String MSSQL_URL = """
-            jdbc:sqlserver://localhost:1433;
-            database=CSMS;
-            user=sa;
-            password=0912217817;
-            encrypt=false;
-            trustServerCertificate=false;
-            loginTimeout=30;""";
+    String MSSQL_URL =
+            """
+                    jdbc:sqlserver://localhost:1433;
+                    database=CSMS;
+                    user=sa;
+                    password=0912217817;
+                    encrypt=false;
+                    trustServerCertificate=false;
+                    loginTimeout=30;""";
     String SQLSERVER_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+
+    String H2_URL =
+            "jdbc:h2:file:~/ldata/fakebook-master/src/main/resources/data/test";
+
+    String H2_DRIVER = "org.h2.Driver";
+
+    String H2_USER = "sa";
+    String H2_PASS = "";
+
 
     <K> List<K> query(String sql, RowMapper<K> mapper, Object... parameters);
 
-    <T> List<T> query(Pageable pageable, RowMapper<T> mapper, String inputSql);
+    <T> List<T> query(String inputSql, RowMapper<T> mapper, Pageable pageable, Object... parameters);
 
     void update(String sql, Object... parameters);
 

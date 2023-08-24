@@ -24,7 +24,7 @@ public class ProfileController extends HttpServlet {
 
     private final String SUCCESS_MESSAGE = "successMessage";
     private final String ERROR_MESSAGE = "errorMessage";
-    private final String CURRENT_ID = "id";
+    private final String ID = "id";
     private final String PROFILE_JSP = "profile.jsp";
 
     @Inject
@@ -33,7 +33,7 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        Optional<User> user = repository.findById("A1");
+        Optional<User> user = repository.findById((String) session.getAttribute(ID));
         if (user.isPresent()) {
             request.setAttribute("user", user.get());
             request.getRequestDispatcher(PROFILE_JSP).forward(request, response);
@@ -45,18 +45,17 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        String currentId = (String) session.getAttribute(CURRENT_ID);
         Date date = new Date(RequestDateGetter.getDate(request.getParameter("date")).getTime());
         User newUserInfo = RequestMapper.toModel(User.class, request);
         newUserInfo.setDob(date);
-        Optional<User> persistUser = repository.findById(currentId);
+        Optional<User> persistUser = repository.findById((String) session.getAttribute(ID));
 
         if (persistUser.get().getEmail().equals(newUserInfo.getEmail())) {
-            updateDetailInfo(persistUser, newUserInfo);
+            updateUserByBasicInfo(persistUser, newUserInfo);
             request.setAttribute(SUCCESS_MESSAGE, "Lưu thông tin thành công!");
         } else if (repository.findEmailByEmailNotById(newUserInfo.getId(),
                 newUserInfo.getEmail()).isEmpty()) {
-            updateDetailInfo(persistUser, newUserInfo);
+            updateUserByBasicInfo(persistUser, newUserInfo);
             request.setAttribute(SUCCESS_MESSAGE, "Lưu thông tin thành công!");
         } else {
             request.setAttribute(ERROR_MESSAGE, "Email đã tồn tại trong hệ thống.");
@@ -64,7 +63,7 @@ public class ProfileController extends HttpServlet {
         request.getRequestDispatcher(PROFILE_JSP).forward(request, response);
     }
 
-    private void updateDetailInfo(Optional<User> persistUser, User newUserInfo) {
+    private void updateUserByBasicInfo(Optional<User> persistUser, User newUserInfo) {
         User updatedUser = persistUser.get();
         updatedUser.setName(newUserInfo.getName());
         updatedUser.setDob(newUserInfo.getDob());

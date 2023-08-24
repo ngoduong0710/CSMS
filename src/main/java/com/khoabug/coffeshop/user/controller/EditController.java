@@ -55,11 +55,11 @@ public class EditController extends HttpServlet {
         }
 
         if (persistUser.get().getEmail().equals(updateUserInfo.getEmail())) {
-            updateBasicInfo(persistUser, updateUserInfo);
+            updateUserByBasicInfo(persistUser, updateUserInfo);
             request.setAttribute(SUCCESS_MESSAGE, "Lưu thông tin thành công!");
         } else if (userRepository.findEmailByEmailNotById(updateUserInfo.getId(),
                 updateUserInfo.getEmail()).isEmpty()) {
-            updateBasicInfo(persistUser, updateUserInfo);
+            updateUserByBasicInfo(persistUser, updateUserInfo);
             request.setAttribute(SUCCESS_MESSAGE, "Lưu thông tin thành công!");
         } else {
             request.setAttribute(ERROR_MESSAGE, "Email đã tồn tại trong hệ thống.");
@@ -68,7 +68,7 @@ public class EditController extends HttpServlet {
         request.getRequestDispatcher(EDIT_USER_JSP_PATH).forward(request, response);
     }
 
-    private void updateBasicInfo(Optional<User> persistUser, UserRegisterDTO basicInfo) {
+    private void updateUserByBasicInfo(Optional<User> persistUser, UserRegisterDTO basicInfo) {
         User updatedUser = persistUser.get();
         updatedUser.setName(basicInfo.getName());
         updatedUser.setRole(new Role(basicInfo.getRoleId()));
