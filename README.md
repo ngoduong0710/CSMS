@@ -24,6 +24,8 @@ CSMS is a web-based application tailored to enhance the efficiency of managing d
 - [log4j-core-2.20.0](https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.20.0/log4j-core-2.20.0.jar)
 - [jakarta.mail-2.0.1](https://repo1.maven.org/maven2/com/sun/mail/jakarta.mail/2.0.1/jakarta.mail-2.0.1.jar)
 - [jjwt-api-0.11.5](https://repo1.maven.org/maven2/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5.jar)
+- [jjwt-impl-0.11.5](https://repo1.maven.org/maven2/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5.jar)
+- [jjwt-gson-0.11.5](https://repo1.maven.org/maven2/io/jsonwebtoken/jjwt-gson/0.11.5/jjwt-gson-0.11.5.jar)
 - [jakarta.servlet.jsp.jstl-api-3.0.0](https://repo1.maven.org/maven2/jakarta/servlet/jsp/jstl/jakarta.servlet.jsp.jstl-api/3.0.0/jakarta.servlet.jsp.jstl-api-3.0.0.jar)
 - [jakarta.servlet.jsp.jstl-3.0.1](https://repo1.maven.org/maven2/org/glassfish/web/jakarta.servlet.jsp.jstl/3.0.1/jakarta.servlet.jsp.jstl-3.0.1.jar)
 - [jackson-annotations-2.15.2](https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar)
