@@ -61,11 +61,11 @@
                                 <div class="add-role" >
                                     <c:set var="c" value="${requestScope.role}"/>
                                     <form action="editRole" method="post" style="display: flex">
-                                        <input style="width: 200px; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="ID" name="id" value="${c.id}"><br>
+                                        <input style="width: 30%; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="ID" name="id" value="${c.id}"><br>
 
-                                        <input style="width: 200px; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="Tên vai trò" name="name" value="${c.name}"><br>
+                                        <input style="width: 30%; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="Tên vai trò" name="name" value="${c.name}"><br>
 
-                                        <input style="width: 200px; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="Quyền hạn" name="authorize" value="${c.authorize}"><br>
+                                        <input style="width: 30%; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="Quyền hạn" name="authorize" value="${c.authorize}"><br>
 
                                         <a href="listRole"><button value="edit" >Sửa</button></a>
                                     </form>

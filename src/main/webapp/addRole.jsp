@@ -59,11 +59,11 @@
                                 <div class="add-role">
                                     <form action="addRole" style="display: flex">
                                          <h3 style="color: blue">${requestScope.error}</h3>
-                                        <input style="width: 200px; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="ID" name="id"><br>
+                                        <input style="width: 30%; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="ID" name="id"><br>
 
-                                        <input style="width: 200px; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="Tên vai trò" name="name"><br>
+                                        <input style="width: 30%; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="Tên vai trò" name="name"><br>
 
-                                        <input style="width: 200px; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="Quyền hạn" name="authorize"><br>
+                                        <input style="width: 30%; height: 40px; border: 2px solid black; border-radius: 5px;" type="text" placeholder="Quyền hạn" name="authorize"><br>
 
                                     <button>Thêm</button>
                                     </form>
