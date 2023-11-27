@@ -13,8 +13,8 @@ import java.util.Properties;
  **/
 public class GMailService {
 
-    static final String FROM = "khoatdqe170041@fpt.edu.vn";
-    static final String PASSWORD = "dbekukgbomyxnoia";
+    static final String FROM = "";
+    static final String PASSWORD = "";
 
     public static boolean sendEmail(String to, String title, String content) {
         // Properties : khai báo các thuộc tính
